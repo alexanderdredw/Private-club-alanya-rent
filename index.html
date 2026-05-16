@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Премиальная аренда квартир в Алании</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css?v=13">
+    <link rel="stylesheet" href="css/club.css?v=1">
+</head>
+
+<body class="theme-dark">
+
+    <div id="particles-container"></div>
+
+    <nav class="navbar">
+        <div class="logo" onclick="navigate('home')">
+            <div class="logo-brand">FORTUNA</div>
+            <div class="logo-subtitle">PRIVATE CLUB</div>
+            <div class="logo-tagline">Exclusive Stays in Alanya</div>
+        </div>
+
+        <div class="nav-links">
+            <span onclick="navigate('home')" data-i18n="nav_home" class="nav-item">Главная</span>
+            <span onclick="navigate('catalog')" data-i18n="nav_apartments" class="nav-item">Квартиры</span>
+            <span onclick="navigate('about')" data-i18n="nav_about" class="nav-item">Об Алании</span>
+            <span onclick="navigate('management')" data-i18n="nav_management" class="nav-item">Управление</span>
+            <span onclick="navigate('club')" data-i18n="nav_club" class="nav-item">О Клубе</span>
+        </div>
+
+        <div class="lang-switcher" id="lang-switcher">
+            <span class="active" data-lang="ru">RU</span>
+            <span data-lang="en">EN</span>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Main View container -->
+    <div id="app-content">
+        <!-- Injected via JS -->
+    </div>
+
+    <!-- Alanya Video Modal (Global) -->
+    <div id="alanya-modal" class="alanya-modal-overlay" onclick="closeAlanyaModal(event)">
+        <div class="alanya-modal-glass" onclick="event.stopPropagation()">
+            <button class="alanya-modal-close" onclick="closeAlanyaModal(event, true)">&times;</button>
+            <div class="alanya-modal-frame">
+                <iframe id="alanya-iframe" src="" title="Discover Alanya" frameborder="0"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowfullscreen style="width:100%;height:100%;border-radius:18px;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Telegram -->
+    <a href="https://t.me/BestrentalAgent" target="_blank" class="floating-tg" data-i18n="floating_wa">
+        <span class="tg-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.88.03-.24.36-.48.99-.73 3.88-1.69 6.46-2.8 7.74-3.35 3.68-1.56 4.44-1.83 4.94-1.84.11 0 .35.03.51.16.14.12.18.28.19.39.01.07.01.21 0 .33z">
+                </path>
+            </svg>
+        </span>
+        <span class="tg-text">Напишите нам — мы подберем идеальный вариант</span>
+    </a>
+
+    <!-- Floating Language Toggle -->
+    <div class="floating-lang" id="floating-lang-toggle" title="Change Language">
+        <span class="lang-text" id="floating-lang-text">RU</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-linejoin="round" class="globe-icon" style="margin-top: 2px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-disclaimer-container">
+                <p class="footer-disclaimer" data-i18n="footer_disclaimer">
+                    Fortuna Private Club является частным информационным ресурсом и экспертной lifestyle-платформой. Портал не является туроператором, туристическим агентством, арендодателем или исполнителем сервисных услуг. Все вопросы проживания, аренды, трансфера и дополнительных сервисов согласуются напрямую между гостями, владельцами объектов и независимыми лицензированными партнерами.
+                </p>
+            </div>
+            
+            <div class="footer-social-grid">
+                <a href="https://t.me/BestrentalAgent" target="_blank" class="social-glass-btn tg" title="Telegram">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.88.03-.24.36-.48.99-.73 3.88-1.69 6.46-2.8 7.74-3.35 3.68-1.56 4.44-1.83 4.94-1.84.11 0 .35.03.51.16.14.12.18.28.19.39.01.07.01.21 0 .33z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/fortuna_rent_alanya?igsh=Zm5jazNhdDMybHgz" target="_blank" class="social-glass-btn ig" title="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+                <a href="https://www.tiktok.com/@fortunarentalanya?_r=1&_t=ZS-96JCqonPLmC" target="_blank" class="social-glass-btn tt" title="TikTok">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.06-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.28-2.26.74-4.63 2.58-5.91 1.18-.87 2.62-1.35 4.1-1.39 0 4.02-.01 4.02-.01 4.02-1.01.03-2.06.43-2.73 1.21-.65.73-.83 1.74-.61 2.66.21.98.96 1.79 1.9 2.11.8.29 1.69.21 2.41-.21.72-.41 1.25-1.14 1.42-1.94.13-.51.13-1.04.13-1.57-.01-5.18 0-10.37 0-15.56z"/></svg>
+                </a>
+                <a href="mailto:info@fortunarentalanya.com" class="social-glass-btn mail" title="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </a>
+            </div>
+            
+            <p class="copyright">&copy; 2026 Fortuna Rent Alanya.</p>
+        </div>
+    </footer>
+
+    <!-- YouTube Player API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- App Data -->
+    <script src="js/aboutData.js?v=1"></script>
+    <script src="js/clubData.js?v=1"></script>
+    <script src="js/data.js?v=6"></script>
+    <script src="js/app.js?v=13"></script>
+</body>
+
+</html>

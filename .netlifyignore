@@ -1,0 +1,31 @@
+# Netlify Ignore - Exclude non-production scripts and temp files
+# Exclude everything in root by default
+/*
+
+# Re-include core production folders
+!/css/
+!/js/
+!/assets/
+
+# Re-include main entry point
+!/index.html
+
+# Re-include all apartment image/video folders (folders starting with numbers)
+!/[0-9]* Mah/
+!/[0-9]* Mah V/
+!/[0-9]* Mah v/
+!/[0-9]* mah v/
+!/PHOTOS/
+
+# Exclude specific non-app JS files in subfolders (if any)
+**/classify.js
+**/FIX_*.js
+
+# Exclude large management/junk files in root (already excluded by /* but being explicit)
+/audit_data.js
+/build-data.js
+/build_new.js
+/temp_data_title.js
+/repair_data.js
+/restore_sorting.js
+/new_appts.js

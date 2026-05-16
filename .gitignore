@@ -1,0 +1,7 @@
+.netlify/
+.vscode/
+node_modules/
+*.log
+scratch/
+dist_deploy/
+deploy-*.zip
