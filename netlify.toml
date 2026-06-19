@@ -1,0 +1,11 @@
+# Netlify configuration for Fortuna Private Club SPA
+# The catch-all redirect ensures all routes serve index.html,
+# enabling the HTML5 History API router to handle navigation client-side.
+
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200
+
+[build]
+  publish = "."

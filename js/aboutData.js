@@ -46,7 +46,7 @@ const aboutData = {
         blocks: [
             {
                 phase: { en: "Morning", ru: "Утро" },
-                img: "assets/images/lifestyle_morning.jpg",
+                img: "/assets/images/lifestyle_morning.jpg",
                 position: "center bottom", /* Re-framed to explicitly show the breakfast table */
                 text: { 
                     en: "Sunlight spills across your private terrace. The day begins with the scent of sea air, rich Turkish coffee, and pure, uninterrupted comfort.",
@@ -54,7 +54,7 @@ const aboutData = {
             },
             {
                 phase: { en: "Day", ru: "День" },
-                img: "assets/images/lifestyle_day.jpg",
+                img: "/assets/images/lifestyle_day.jpg",
                 position: "center 80%",
                 text: { 
                     en: "Effortless movement. Sink your feet into the golden sands of Cleopatra Beach, or wander the ancient, history-draped streets of the city center.",
@@ -62,14 +62,14 @@ const aboutData = {
             },
             {
                 phase: { en: "Evening", ru: "Вечер" },
-                img: "assets/images/lifestyle_evening.jpg",
+                img: "/assets/images/lifestyle_evening.jpg",
                 text: { 
                     en: "As the sky turns violet and gold, the marina awakens. Premium dining, soft breezes, and the gentle clinking of glasses by the water's edge.",
                     ru: "Когда небо становится фиолетово-золотым, марина оживает. Премиальные рестораны, легкий бриз и звон бокалов у самой воды.",                }
             },
             {
                 phase: { en: "Night", ru: "Ночь" },
-                img: "assets/images/lifestyle_night_v3.jpg",
+                img: "/assets/images/lifestyle_night_v3.jpg",
                 text: { 
                     en: "Return to your sanctuary. A profound, luxurious silence descends, leaving only the sound of waves in the distance.",
                     ru: "Возвращение в ваше убежище. Спускается глубокая, роскошная тишина, оставляя лишь шум волн вдалеке.",                }
@@ -101,7 +101,7 @@ const aboutData = {
                     en: "One of the best-preserved Seljuk castles in the world, offering a 360-degree journey through time.",
                     ru: "Один из немногих замков в мире, где история раскрывается через панорамные виды на бескрайнее Средиземное море."
                 },
-                img: "assets/images/landmark_castle_new.jpg",
+                img: "/assets/images/landmark_castle_new.jpg",
                 size: "large"
             },
             {
@@ -126,7 +126,7 @@ const aboutData = {
                     en: "Silky, granular sand that never clouds the water, creating a translucent swimming experience like no other.",
                     ru: "Шелковистый зернистый песок, который никогда не замутняет воду, создавая уникальные ощущения от купания."
                 },
-                img: "assets/images/landmark_cleopatra.jpg",
+                img: "/assets/images/landmark_cleopatra.jpg",
                 size: "tall"
             },
             {
@@ -151,7 +151,7 @@ const aboutData = {
                     en: "An architectural marvel where red brick and limestone merge to form a silhouette that defines the Alanya horizon.",
                     ru: "Архитектурное чудо, где красный кирпич и известняк сливаются, образуя силуэт, определяющий горизонт Алании."
                 },
-                img: "assets/images/landmark_redtower.jpg",
+                img: "/assets/images/landmark_redtower.jpg",
                 size: "small"
             },
             {
@@ -176,7 +176,7 @@ const aboutData = {
                     en: "Breathtaking sunset vistas and world-class services, defining the height of Mediterranean holiday luxury.",
                     ru: "Захватывающие дух виды на закат и услуги мирового класса, определяющие вершину средиземноморской роскоши."
                 },
-                img: "assets/images/landmark_marina_night.jpg",
+                img: "/assets/images/landmark_marina_night.jpg",
                 size: "wide"
             },
             {
@@ -201,7 +201,7 @@ const aboutData = {
                     en: "A natural sanctuary of timeless stone, where the ancient world’s silence offers modern healing.",
                     ru: "Природное святилище из вечного камня, где тишина древнего мира дарует современное исцеление."
                 },
-                img: "assets/images/landmark_cave.jpg",
+                img: "/assets/images/landmark_cave.jpg",
                 size: "small"
             },
             {
@@ -236,32 +236,32 @@ const aboutData = {
         text: { en: "Breathe in the deeply restorative air. Let the endless Mediterranean horizon disconnect you from stress.", ru: "Вдохните глубоко восстанавливающий воздух. Позвольте бесконечному горизонту оградить вас от стресса." },
         images: [
             {
-                img: "assets/images/nature_rafting.jpg",
+                img: "/assets/images/nature_rafting.jpg",
                 title: { ru: "Рафтинг", en: "Rafting" },
                 desc: { ru: "Пройдите по бурным горным рекам и почувствуйте энергию природы в одном из самых ярких приключений Алании.", en: "Navigate wild mountain rivers and feel the raw energy of nature in one of Alanya's most vibrant adventures." }
             },
             {
-                img: "assets/images/nature_diving.jpg",
+                img: "/assets/images/nature_diving.jpg",
                 title: { ru: "Дайвинг", en: "Diving" },
                 desc: { ru: "Исследуйте подводный мир Средиземного моря, где кристальная вода и яркая морская жизнь открывают совершенно другую сторону побережья.", en: "Explore the underwater world of the Mediterranean, where crystal waters and vibrant marine life reveal a different side of the coast." }
             },
             {
-                img: "assets/images/nature_safari.webp",
+                img: "/assets/images/nature_safari.webp",
                 title: { ru: "Сафари", en: "Safari" },
                 desc: { ru: "Откройте живописные маршруты за пределами побережья и увидьте дикую, более спокойную и аутентичную сторону региона.", en: "Discover scenic routes beyond the coast and see the wild, calmer, and more authentic side of the region." }
             },
             {
-                img: "assets/images/nature_buggy.jpg",
+                img: "/assets/images/nature_buggy.jpg",
                 title: { ru: "Багги-сафари", en: "Buggy Safari" },
                 desc: { ru: "Скорость и драйв на бездорожье: преодолевайте пыльные тропы и лесные массивы в захватывающей гонке по горам Алании.", en: "Speed and drive off-road: conquer dusty trails and forest tracts in a thrilling race through the Alanya mountains." }
             },
             {
-                img: "assets/images/paragliding-in-alanya.jpg",
+                img: "/assets/images/paragliding-in-alanya.jpg",
                 title: { ru: "Параглайдинг", en: "Paragliding" },
                 desc: { ru: "Поднимитесь над морем и скалами, чтобы увидеть Аланию с высоты, где природа и горизонт ощущаются по-настоящему безграничными.", en: "Soar above the sea and cliffs to see Alanya from above, where nature and the horizon feel truly limitless." }
             },
             {
-                img: "assets/images/nature_sapadere.avif",
+                img: "/assets/images/nature_sapadere.avif",
                 title: { ru: "Каньон Сападере", en: "Sapadere Canyon" },
                 desc: { ru: "Прогуляйтесь по деревянным мостикам глубоко в каньоне, любуясь водопадами и вдыхая прохладу нетронутой горной природы.", en: "Stroll along wooden bridges deep in the canyon, admiring waterfalls and breathing in the cool air of untouched mountain nature." }
             }

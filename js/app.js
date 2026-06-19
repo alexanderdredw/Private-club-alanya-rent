@@ -126,9 +126,30 @@ document.addEventListener('DOMContentLoaded', () => {
     initLanguageSwitcher();
     initScrollEffects();
     initParticles();
-    
-    // Initial Render
-    renderHome();
+
+    // ── SEO ROUTER: Resolve the current URL on initial page load ──
+    // This handles direct URL access and page refreshes at any route.
+    if (window.router) {
+        const resolved = window.router.resolveRoute(window.location.pathname);
+        const view = resolved.view || 'home';
+        const id   = resolved.id   || null;
+
+        // Replace current history state with structured data (no new entry)
+        try {
+            history.replaceState({ view, id }, '', window.location.pathname);
+        } catch(e) {
+            console.warn("History API is restricted (likely running from file://). Routing works internally.");
+        }
+
+        // Update SEO meta for the initial page
+        window.router.updateSEO(view, id);
+
+        // Render the resolved page
+        navigateInternal(view, id);
+    } else {
+        // Fallback if router.js failed to load
+        renderHome();
+    }
 });
 
 // Translation Helper
@@ -372,9 +393,13 @@ Object.assign(translations.en, {
 });
 
 // Update logic to maintain current route (Home vs Detail)
-state.currentView = 'home';
+state.currentView = null;
 state.activeAptId = null;
 
+/**
+ * navigate() — Public navigation function.
+ * Pushes a new history entry and updates SEO on every call.
+ */
 function navigate(view, id = null) {
     if(window.galleryState) {
         if(window.galleryState.interval) clearInterval(window.galleryState.interval);
@@ -382,7 +407,35 @@ function navigate(view, id = null) {
         window.galleryState.interval = null;
         window.galleryState.timeout = null;
     }
-    
+
+    // ── SEO ROUTER: Push the new URL to the browser address bar ──
+    if (window.router) {
+        if (view === 'back_from_apartment') {
+            // Going back to catalog — push /apartments
+            window.router.pushRoute('catalog', null);
+            window.router.updateSEO('catalog', null);
+        } else {
+            window.router.pushRoute(view, id);
+            window.router.updateSEO(view, id);
+        }
+    }
+
+    // Delegate actual rendering to the internal function
+    navigateInternal(view, id);
+}
+
+/**
+ * navigateInternal() — Renders a page WITHOUT pushing a history entry.
+ * Called by: navigate() and the popstate handler in router.js.
+ */
+function navigateInternal(view, id = null) {
+    if(window.galleryState) {
+        if(window.galleryState.interval) clearInterval(window.galleryState.interval);
+        if(window.galleryState.timeout) clearTimeout(window.galleryState.timeout);
+        window.galleryState.interval = null;
+        window.galleryState.timeout = null;
+    }
+
     if (view === 'apartment' && state.currentView !== 'apartment') {
         state.previousView = state.currentView;
         state.previousScrollY = window.scrollY || document.documentElement.scrollTop;
@@ -393,12 +446,12 @@ function navigate(view, id = null) {
         const targetView = 'catalog';
         state.currentView = targetView;
         state.activeAptId = null;
-        
+
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.nav-item[onclick*="' + targetView + '"]').forEach(el => el.classList.add('active'));
 
         renderCatalog();
-        
+
         setTimeout(() => {
             if (lastAptId) {
                 const cardEl = document.querySelector(`.apt-card[onclick*="'${lastAptId}'"]`);
@@ -416,7 +469,7 @@ function navigate(view, id = null) {
     // Prevent redundant navigation if already on the requested view
     if (state.currentView === view && (!id || state.activeAptId === id)) {
         if (view !== 'back_from_apartment') {
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top if already there
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
     }
@@ -424,12 +477,12 @@ function navigate(view, id = null) {
     state.currentView = view;
     state.activeAptId = id;
 
-    // Update active nav
+    // Update active nav highlight
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     const activeNav = document.querySelector('.nav-item[onclick*="' + view + '"]');
     if (activeNav) activeNav.classList.add('active');
 
-    // Centralized Scroll to Top
+    // Scroll to top
     if (view !== 'back_from_apartment') {
         window.scrollTo({ top: 0, behavior: 'instant' });
     }
@@ -479,7 +532,7 @@ function renderHome() {
         const featuredHtml = featured.map((apt, index) => {
             const localTitle = apt.title[state.lang] || apt.title['ru'];
             const localDesc = apt.description[state.lang] || apt.description['ru'];
-            const mainImage = apt.photos.length > 0 ? `${apt.photosDir}/${apt.photos[0]}` : '';
+            const mainImage = apt.photos.length > 0 ? (apt.photos[0].startsWith('http') ? apt.photos[0] : `/${apt.photosDir}/${apt.photos[0]}`) : '';
             return `
             <div class="apt-card reveal-up" style="transition-delay: ${index * 0.1}s" onclick="navigate('apartment', '${apt.id}')">
                 <div class="apt-image">
@@ -514,7 +567,7 @@ function renderHome() {
                             <span data-i18n="btn_catalog">${t('btn_catalog')}</span>
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </button>
-                        <a href="https://t.me/BestrentalAgent" target="_blank" class="btn-secondary">
+                        <a href="https://t.me/fortuna_private_club" target="_blank" class="btn-secondary">
                             <svg class="btn-icon-left" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.88.03-.24.36-.48.99-.73 3.88-1.69 6.46-2.8 7.74-3.35 3.68-1.56 4.44-1.83 4.94-1.84.11 0 .35.03.51.16.14.12.18.28.19.39.01.07.01.21 0 .33z"></path>
                             </svg>
@@ -540,7 +593,7 @@ function renderHome() {
                     </div>
                 </div>
                 <div class="lifestyle-image-panel reveal-scale">
-                    <img src="assets/images/hero_alanya.png" alt="Premium lifestyle">
+                    <img src="/assets/images/hero_alanya.png" alt="Premium lifestyle">
                 </div>
             </section>
 
@@ -567,11 +620,15 @@ function renderHome() {
         const criticalImages = appEl.querySelectorAll('img');
         criticalImages.forEach(img => {
             if (img.complete) return;
-            img.decode().then(() => {
+            if (typeof img.decode === 'function') {
+                img.decode().then(() => {
+                    img.style.opacity = '1';
+                }).catch(() => {
+                    img.style.opacity = '1';
+                });
+            } else {
                 img.style.opacity = '1';
-            }).catch(() => {
-                img.style.opacity = '1';
-            });
+            }
         });
 
         // Parallax effect on hero
@@ -616,15 +673,82 @@ function observeNewElements() {
             if (window.innerWidth <= 768) {
                 const isActive = this.classList.contains('active');
                 if (!isActive) {
-                    // Reveal content first, prevent immediate navigation if desired
-                    // e.preventDefault(); // Uncomment if first click should only reveal
                     document.querySelectorAll('.nature-img-card.active, .bento-card.active').forEach(c => c.classList.remove('active'));
                     this.classList.add('active');
                 }
             }
         });
     });
+
+    initSmoothAccordions();
 }
+
+/**
+ * Smooth animated accordion for <details> panels.
+ * Intercepts the native toggle and animates height instead.
+ */
+function initSmoothAccordions() {
+    document.querySelectorAll('.pd-details-panel').forEach(details => {
+        // Prevent double-initialisation
+        if (details.dataset.accordionInit) return;
+        details.dataset.accordionInit = '1';
+
+        const summary = details.querySelector('.pd-panel-header');
+        const content = details.querySelector('.pd-panel-content');
+        if (!summary || !content) return;
+
+        // Keep content in DOM but hidden when closed
+        content.style.overflow = 'hidden';
+
+        summary.addEventListener('click', e => {
+            e.preventDefault();
+
+            if (details.open) {
+                // --- CLOSING ---
+                const startH = content.scrollHeight;
+                content.style.height = startH + 'px';
+
+                requestAnimationFrame(() => {
+                    content.style.transition = 'height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease';
+                    content.style.height = '0px';
+                    content.style.opacity = '0';
+                });
+
+                content.addEventListener('transitionend', function handler(ev) {
+                    if (ev.propertyName !== 'height') return;
+                    details.removeAttribute('open');
+                    content.style.transition = '';
+                    content.style.height = '';
+                    content.style.opacity = '';
+                    content.removeEventListener('transitionend', handler);
+                });
+
+            } else {
+                // --- OPENING ---
+                details.setAttribute('open', '');
+                const targetH = content.scrollHeight;
+
+                content.style.height = '0px';
+                content.style.opacity = '0';
+
+                requestAnimationFrame(() => {
+                    content.style.transition = 'height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease';
+                    content.style.height = targetH + 'px';
+                    content.style.opacity = '1';
+                });
+
+                content.addEventListener('transitionend', function handler(ev) {
+                    if (ev.propertyName !== 'height') return;
+                    content.style.transition = '';
+                    content.style.height = '';
+                    content.style.opacity = '';
+                    content.removeEventListener('transitionend', handler);
+                });
+            }
+        });
+    });
+}
+
 
 // Render Apartment Detail View
 function renderApartment(aptId) {
@@ -644,7 +768,7 @@ function renderApartment(aptId) {
     // Setup gallery state
     window.galleryState = {
         index: 0,
-        images: apt.photos.map(p => `${apt.photosDir}/${p}`),
+        images: apt.photos.map(p => p.startsWith('http') ? p : `/${apt.photosDir}/${p}`),
         interval: null,
         timeout: null,
         isFullscreen: false,
@@ -671,7 +795,6 @@ function renderApartment(aptId) {
         videoBtnStr = `<button class="switcher-btn" onclick="switchMedia('video')" data-i18n="btn_video">${t('btn_video')}</button>`;
         
         const ytId = getYouTubeId(apt.video);
-        
         if (ytId) {
             // YouTube Player Container
             videoContainerStr = `
@@ -689,19 +812,24 @@ function renderApartment(aptId) {
             `;
         } else {
             // Local Video Player
+            const videoSrc = `/${apt.videoDir}/${apt.video}`;
+            
             videoContainerStr = `
                 <div id="media-video" class="media-container cinematic-video-container custom-player">
                     <video class="cinematic-bg-video" muted playsinline preload="none">
-                        <source src="${apt.videoDir}/${apt.video}" type="video/mp4">
+                        <source src="${videoSrc}">
                     </video>
                     <div class="cinematic-overlay"></div>
                     
                     <video preload="metadata" class="cinematic-main-video custom-vid-el" playsinline>
-                        <source src="${apt.videoDir}/${apt.video}" type="video/mp4">
+                        <source src="${videoSrc}">
                         Your browser does not support the video tag.
                     </video>
                     
                     <div class="player-ui">
+                        <div class="center-play-btn" onclick="window.togglePlayPause(event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
                         
 
                         <div class="tap-zone zone-left">
@@ -864,7 +992,7 @@ function renderApartment(aptId) {
                             <div class="b-perk"><svg viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" width="16" height="16"><polyline points="20 6 9 17 4 12"></polyline></svg> <span data-i18n="perk_fast_confirm">${t('perk_fast_confirm')}</span></div>
                         </div>
 
-                        <a href="https://t.me/BestrentalAgent" target="_blank" class="btn-super-premium">
+                        <a href="https://t.me/fortuna_private_club" target="_blank" class="btn-super-premium">
                             <span class="btn-glow"></span>
                             <span class="btn-text-content">
                                 <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none" class="tg-icon-svg" style="margin-right: 15px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
@@ -909,7 +1037,7 @@ function renderApartment(aptId) {
                 <div class="contact-section reveal-up">
                     <h2 data-i18n="contact_title">${t('contact_title')}</h2>
                     <div class="contact-buttons-row">
-                        <a href="https://t.me/BestrentalAgent" target="_blank" class="contact-btn tg-btn">
+                        <a href="https://t.me/fortuna_private_club" target="_blank" class="contact-btn tg-btn">
                             Telegram
                         </a>
                         <a href="tel:+901234567890" class="contact-btn">
@@ -1134,7 +1262,7 @@ function renderCatalog() {
     const catalogHtml = state.apartments.map((apt, index) => {
         const localTitle = apt.title[state.lang] || apt.title['ru'];
         const localDesc = apt.description[state.lang] || apt.description['ru'];
-        const mainImage = apt.photos.length > 0 ? `${apt.photosDir}/${apt.photos[0]}` : '';
+        const mainImage = apt.photos.length > 0 ? (apt.photos[0].startsWith('http') ? apt.photos[0] : `/${apt.photosDir}/${apt.photos[0]}`) : '';
         
         return `
         <div class="apt-card reveal-up" style="transition-delay: ${(index % 3) * 0.1}s" onclick="navigate('apartment', '${apt.id}')">
@@ -1214,8 +1342,10 @@ function renderAbout() {
     // 2. Why Alanya Feels Different
     const specialFeaturesHtml = aboutData.special.features.map((f, i) => `
         <div class="special-feature-item reveal-up" style="transition-delay: ${i * 0.15}s">
-            ${f.icon ? `<div class="special-feature-icon">${f.icon}</div>` : ''}
-            <h3>${f.title[state.lang] || f.title['en'] || f.title['ru']}</h3>
+            <div class="special-feature-header">
+                ${f.icon ? `<div class="special-feature-icon">${f.icon}</div>` : ''}
+                <h3>${f.title[state.lang] || f.title['en'] || f.title['ru']}</h3>
+            </div>
             <p>${f.desc[state.lang] || f.desc['en'] || f.desc['ru']}</p>
         </div>
     `).join('');
@@ -1618,7 +1748,7 @@ function renderManagement() {
           <div class="luxury-line" style="margin:0 auto 28px;"></div>
           <h1 class="mgmt-hero-title" data-i18n="mgmt_hero_title">${t('mgmt_hero_title')}</h1>
           <p class="mgmt-hero-sub" data-i18n="mgmt_hero_sub">${t('mgmt_hero_sub')}</p>
-          <a href="https://t.me/BestrentalAgent" target="_blank" class="mgmt-cta-btn hero-cta">
+          <a href="https://t.me/fortuna_private_club" target="_blank" class="mgmt-cta-btn hero-cta">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.88.03-.24.36-.48.99-.73 3.88-1.69 6.46-2.8 7.74-3.35 3.68-1.56 4.44-1.83 4.94-1.84.11 0 .35.03.51.16.14.12.18.28.19.39.01.07.01.21 0 .33z"/></svg>
             <span data-i18n="mgmt_btn_discuss">${t('mgmt_btn_discuss')}</span>
           </a>
@@ -1695,7 +1825,7 @@ function renderManagement() {
           <div class="mgmt-cta-glass">
             <h2 class="mgmt-cta-title" data-i18n="mgmt_cta_title">${t('mgmt_cta_title')}</h2>
             <p class="mgmt-cta-sub" data-i18n="mgmt_cta_sub">${t('mgmt_cta_sub')}</p>
-            <a href="https://t.me/BestrentalAgent" target="_blank" class="mgmt-cta-btn">
+            <a href="https://t.me/fortuna_private_club" target="_blank" class="mgmt-cta-btn">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.88.03-.24.36-.48.99-.73 3.88-1.69 6.46-2.8 7.74-3.35 3.68-1.56 4.44-1.83 4.94-1.84.11 0 .35.03.51.16.14.12.18.28.19.39.01.07.01.21 0 .33z"/></svg>
               <span data-i18n="mgmt_btn_telegram">${t('mgmt_btn_telegram')}</span>
             </a>
@@ -2272,7 +2402,7 @@ function renderClub() {
                             <div class="editorial-grid">
                                 <div class="editorial-media">
                                     <div class="media-frame">
-                                        <img src="${image || 'assets/images/placeholder.png'}" alt="${title}" loading="lazy">
+                                        <img src="${image || '/assets/images/placeholder.png'}" alt="${title}" loading="lazy">
                                         <div class="media-overlay"></div>
                                     </div>
                                 </div>
@@ -2409,6 +2539,148 @@ function renderClub() {
                     </section>
                 `;
 
+            case 'gallery-card': {
+                const imgs = section.imageUrls || [];
+                const ytId = section.youtubeVideoUrl ? getYouTubeId(section.youtubeVideoUrl) : null;
+                const hasMedia = imgs.length > 0 || ytId;
+                const sectionId = id;
+
+                // Build carousel slides (lazy-loaded, with aspect-ratio placeholder to prevent layout shift)
+                const slidesHtml = imgs.map((url, i) => `
+                    <div class="gc-slide ${i === 0 ? 'gc-slide--active' : ''}" aria-hidden="${i !== 0}">
+                        <div class="gc-img-wrap">
+                            <div class="gc-img-skeleton"></div>
+                            <img
+                                src="${url}"
+                                alt="${section.title} — фото ${i + 1}"
+                                loading="${i === 0 ? 'eager' : 'lazy'}"
+                                decoding="async"
+                                class="gc-img"
+                                onload="this.classList.add('gc-img--loaded'); this.previousElementSibling.style.opacity='0';"
+                                onerror="this.closest('.gc-img-wrap').classList.add('gc-img-wrap--error'); this.previousElementSibling.style.opacity='0';"
+                            >
+                        </div>
+                    </div>
+                `).join('');
+
+                // Build dot indicators
+                const dotsHtml = imgs.length > 1 ? `
+                    <div class="gc-dots" role="tablist" aria-label="Gallery navigation">
+                        ${imgs.map((_, i) => `
+                            <button class="gc-dot ${i === 0 ? 'gc-dot--active' : ''}"
+                                role="tab"
+                                aria-selected="${i === 0}"
+                                aria-label="Photo ${i + 1}"
+                                onclick="window.gcGoTo('${sectionId}', ${i})">
+                            </button>
+                        `).join('')}
+                    </div>
+                ` : '';
+
+                // Empty-state placeholder when no images are configured yet
+                const emptyStateHtml = `
+                    <div class="gc-empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="48" height="48">
+                            <rect x="3" y="3" width="18" height="18" rx="3"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                        <p>${state.lang === 'ru' ? 'Фотографии будут добавлены' : 'Photos coming soon'}</p>
+                    </div>
+                `;
+
+                // YouTube embed section
+                const ytHtml = ytId ? `
+                    <div class="gc-yt-wrap">
+                        <div class="gc-yt-label">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                                <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/>
+                            </svg>
+                            <span>${state.lang === 'ru' ? 'Видео об объектах' : 'Property video'}</span>
+                        </div>
+                        <div class="gc-yt-frame-wrap">
+                            <iframe
+                                class="gc-yt-iframe"
+                                src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1&playsinline=1"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy"
+                                title="${section.title}"
+                            ></iframe>
+                        </div>
+                    </div>
+                ` : '';
+
+                return `
+                    <section id="${sectionId}" class="luxe-section gc-section ${revealClass}">
+                        <div class="container">
+                            <div class="gc-wrapper">
+
+                                <!-- LEFT: Text column -->
+                                <div class="gc-text-col">
+                                    <span class="section-label">${label}</span>
+                                    <h2 class="luxe-section-title">${wrapWords(title)}</h2>
+                                    <p class="gc-subtitle-line">${section.subtitle || ''}</p>
+                                    <p class="gc-description">${section.description || ''}</p>
+                                    <div class="section-divider"></div>
+                                    ${section.callToActionLink ? `
+                                        <a href="${section.callToActionLink}" target="_blank" rel="noopener noreferrer" class="gc-cta-btn">
+                                            <span>${section.callToActionText || (state.lang === 'ru' ? 'Запросить приглашение' : 'Request Invitation')}</span>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                                <polyline points="12 5 19 12 12 19"/>
+                                            </svg>
+                                        </a>
+                                    ` : ''}
+                                </div>
+
+                                <!-- RIGHT: Media column -->
+                                <div class="gc-media-col">
+
+                                    <!-- Image Gallery Carousel -->
+                                    ${imgs.length > 0 ? `
+                                        <div class="gc-carousel" id="gc-carousel-${sectionId}" aria-roledescription="carousel" aria-label="${section.title}">
+                                            <div class="gc-track" id="gc-track-${sectionId}">
+                                                ${slidesHtml}
+                                            </div>
+
+                                            ${imgs.length > 1 ? `
+                                                <button class="gc-arrow gc-arrow--prev" aria-label="Previous photo"
+                                                    onclick="window.gcMove('${sectionId}', -1)">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                                                        <polyline points="15 18 9 12 15 6"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="gc-arrow gc-arrow--next" aria-label="Next photo"
+                                                    onclick="window.gcMove('${sectionId}', 1)">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                                                        <polyline points="9 18 15 12 9 6"/>
+                                                    </svg>
+                                                </button>
+
+                                                <div class="gc-counter" aria-live="polite">
+                                                    <span id="gc-current-${sectionId}">1</span>
+                                                    <span class="gc-counter-sep">/</span>
+                                                    <span>${imgs.length}</span>
+                                                </div>
+
+                                                ${dotsHtml}
+                                            ` : ''}
+                                        </div>
+                                    ` : emptyStateHtml}
+
+                                    <!-- YouTube Embed (shown below carousel if configured) -->
+                                    ${ytHtml}
+
+                                </div><!-- /gc-media-col -->
+
+                            </div><!-- /gc-wrapper -->
+                        </div><!-- /container -->
+                    </section>
+                `;
+            }
+
             case 'cinematic-footer':
                 return `
                     <section id="${id}" class="luxe-section final-cta-layout ${revealClass}">
@@ -2418,7 +2690,7 @@ function renderClub() {
                                 <span class="section-label gold">${label}</span>
                                 <h2 class="luxe-title-xl">${wrapWords(title)}</h2>
                                 <p class="cta-subtitle">${section.subtitle}</p>
-                                <a href="https://t.me/BestrentalAgent" target="_blank" class="btn-luxe-cinematic">
+                                <a href="https://t.me/fortuna_private_club" target="_blank" class="btn-luxe-cinematic">
                                     <span>${section.btn}</span>
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                 </a>
@@ -2437,7 +2709,7 @@ function renderClub() {
             <!-- LUXE HERO -->
             <section class="cinematic-hero">
                 <div class="hero-visual">
-                    <img src="assets/images/club_hero_luxe.png" alt="Fortuna Private Club">
+                    <img src="/assets/images/club_hero_luxe.png" alt="Fortuna Private Club">
                     <div class="hero-mask"></div>
                 </div>
                 <div class="hero-content-luxe">
@@ -2468,7 +2740,105 @@ function renderClub() {
         appEl.querySelectorAll('.reveal-plata, .reveal-up').forEach(el => window.scrollObserver.observe(el));
     }
 
-    // Global toggle functions with asymmetric professional timing
+    // ─────────────────────────────────────────────────────────────────────────
+    // GALLERY-CARD CAROUSEL ENGINE
+    // Supports multiple carousel instances on the same page, each by section ID
+    // ─────────────────────────────────────────────────────────────────────────
+    const gcStateMap = {};  // { [sectionId]: { index, total, autoTimer } }
+
+    function gcInit(sectionId) {
+        const track = document.getElementById(`gc-track-${sectionId}`);
+        if (!track) return;
+        const slides = track.querySelectorAll('.gc-slide');
+        if (!slides.length) return;
+
+        gcStateMap[sectionId] = { index: 0, total: slides.length, autoTimer: null };
+        gcStartAuto(sectionId);
+
+        // Touch swipe support
+        const carousel = document.getElementById(`gc-carousel-${sectionId}`);
+        if (!carousel) return;
+
+        let touchStartX = 0;
+        carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        carousel.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) window.gcMove(sectionId, diff > 0 ? 1 : -1);
+        }, { passive: true });
+
+        // Pause auto on hover / focus
+        carousel.addEventListener('mouseenter', () => gcStopAuto(sectionId));
+        carousel.addEventListener('mouseleave', () => gcStartAuto(sectionId));
+        carousel.addEventListener('focusin', () => gcStopAuto(sectionId));
+        carousel.addEventListener('focusout', () => gcStartAuto(sectionId));
+    }
+
+    function gcRender(sectionId) {
+        const st = gcStateMap[sectionId];
+        if (!st) return;
+        const track = document.getElementById(`gc-track-${sectionId}`);
+        if (!track) return;
+
+        const slides = track.querySelectorAll('.gc-slide');
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('gc-slide--active', i === st.index);
+            slide.setAttribute('aria-hidden', i !== st.index);
+        });
+
+        // Update dot indicators
+        const dots = document.querySelectorAll(`#gc-carousel-${sectionId} .gc-dot`);
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('gc-dot--active', i === st.index);
+            dot.setAttribute('aria-selected', i === st.index);
+        });
+
+        // Update counter
+        const counter = document.getElementById(`gc-current-${sectionId}`);
+        if (counter) counter.textContent = st.index + 1;
+    }
+
+    window.gcMove = function(sectionId, dir) {
+        const st = gcStateMap[sectionId];
+        if (!st) return;
+        gcStopAuto(sectionId);
+        st.index = (st.index + dir + st.total) % st.total;
+        gcRender(sectionId);
+        gcStartAuto(sectionId);
+    };
+
+    window.gcGoTo = function(sectionId, idx) {
+        const st = gcStateMap[sectionId];
+        if (!st) return;
+        gcStopAuto(sectionId);
+        st.index = idx;
+        gcRender(sectionId);
+        gcStartAuto(sectionId);
+    };
+
+    function gcStartAuto(sectionId) {
+        const st = gcStateMap[sectionId];
+        if (!st || st.total <= 1) return;
+        gcStopAuto(sectionId);
+        st.autoTimer = setInterval(() => {
+            if (state.currentView !== 'club') { gcStopAuto(sectionId); return; }
+            st.index = (st.index + 1) % st.total;
+            gcRender(sectionId);
+        }, 5000);
+    }
+
+    function gcStopAuto(sectionId) {
+        const st = gcStateMap[sectionId];
+        if (st && st.autoTimer) { clearInterval(st.autoTimer); st.autoTimer = null; }
+    }
+
+    // Initialize all gallery-card carousels present on this page
+    data.sections.forEach(sec => {
+        if (sec.type === 'gallery-card' && sec.imageUrls && sec.imageUrls.length > 1) {
+            gcInit(sec.id);
+        }
+    });
+
+
     window.toggleLuxeText = (btn) => {
         const container = btn.closest('.luxe-expand-wrapper');
         const content = container.querySelector('.expandable-content');

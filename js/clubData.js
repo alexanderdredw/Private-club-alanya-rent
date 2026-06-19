@@ -12,7 +12,7 @@ const clubData = {
                 title: "Исключительность как стандарт",
                 text: "Мы верим, что в мире избыточного выбора истинной роскошью становится отсутствие необходимости выбирать. Мы создали Fortuna Private Club для тех, кто ценит не просто комфорт, а безупречность среды. Каждый элемент нашей экосистемы — от подбора резиденций до протоколов конфиденциальности — спроектирован так, чтобы ваше время оставалось только вашим.",
                 type: "editorial",
-                image: "assets/images/club_aesthetic.png"
+                image: "/assets/images/club_aesthetic.png"
             },
             {
                 id: "standards",
@@ -20,7 +20,7 @@ const clubData = {
                 title: "Протокол качества",
                 text: "Членство — это не подписка. Это протокол доступа. Каждая резиденция в нашей коллекции проходит многоступенчатый аудит. Мы оцениваем не только интерьер, но и энергетику, окружение и приватность. Если объект не соответствует этике клуба — он остается за его пределами.",
                 type: "editorial-reverse",
-                image: "assets/images/club_hospitality.png"
+                image: "/assets/images/club_hospitality.png"
             },
             {
                 id: "residencies",
@@ -49,7 +49,7 @@ const clubData = {
                 title: "Зоны абсолютного спокойствия",
                 text: "Ваша анонимность — наш приоритет. Мы создаем зоны абсолютного спокойствия в самом сердце региона. Протоколы приватности Fortuna Private Club обеспечивают полную защиту вашей личной жизни и деловой активности от внешнего шума.",
                 type: "cinematic-text",
-                image: "assets/images/club_privacy.png"
+                image: "/assets/images/club_privacy.png"
             },
             {
                 id: "experience",
@@ -129,6 +129,32 @@ const clubData = {
                 ]
             },
             {
+                id: "gallery-showcase",
+                label: "— РЕЗИДЕНЦИИ КЛУБА —",
+                title: "Пространства, которые вдохновляют",
+                subtitle: "Fortuna Private Club · Алания, Турция",
+                description: "Каждая резиденция нашей коллекции — это тщательно отобранное пространство, где архитектура Средиземноморья, приватность и безупречный сервис создают среду для подлинного отдыха. Мы представляем не просто объекты — мы открываем образ жизни.",
+                type: "gallery-card",
+                // ─────────────────────────────────────────────────────────────────
+                // IMAGE CONFIGURATION — единственное место для управления фотографиями
+                // Для добавления изображений из Google Drive замените placeholder URL
+                // на прямые ссылки вида:
+                //   https://lh3.googleusercontent.com/d/<FILE_ID>=w1200
+                // Google Drive папка:
+                //   https://drive.google.com/drive/folders/19GBFBiOZOSt9hDi29VYTLq6bXPhYlmL7
+                // ─────────────────────────────────────────────────────────────────
+                imageUrls: [
+                    // Добавьте сюда прямые URL изображений из Google Drive
+                    // Пример: "https://lh3.googleusercontent.com/d/FILE_ID=w1200"
+                ],
+                // ─────────────────────────────────────────────────────────────────
+                // YOUTUBE — вставьте URL видео для активации встроенного плеера
+                // ─────────────────────────────────────────────────────────────────
+                youtubeVideoUrl: "",  // Например: "https://www.youtube.com/watch?v=XXXXXXXXXXX"
+                callToActionText: "Запросить приглашение",
+                callToActionLink: "https://t.me/fortuna_private_club"
+            },
+            {
                 id: "vision",
                 label: "— ВИДЕНИЕ —",
                 title: "Будущее приватного отдыха",
@@ -152,7 +178,7 @@ const clubData = {
                 title: "Exclusivity as a Standard",
                 text: "We believe that in a world of excessive choice, true luxury is the absence of the need to choose. We created Fortuna Private Club for those who value not just comfort, but the impeccability of the environment. Every element of our ecosystem—from the selection of residences to confidentiality protocols—is designed so that your time remains only yours.",
                 type: "editorial",
-                image: "assets/images/club_aesthetic.png"
+                image: "/assets/images/club_aesthetic.png"
             },
             {
                 id: "standards",
@@ -160,7 +186,7 @@ const clubData = {
                 title: "Quality Protocol",
                 text: "Membership is not a subscription. It is an access protocol. Every residence in our collection undergoes a multi-stage audit. We evaluate not just the interior, but also the energy, surroundings, and privacy. If an object does not meet the club's ethics, it remains outside its boundaries.",
                 type: "editorial-reverse",
-                image: "assets/images/club_hospitality.png"
+                image: "/assets/images/club_hospitality.png"
             },
             {
                 id: "residencies",
@@ -189,7 +215,7 @@ const clubData = {
                 title: "Zones of Absolute Peace",
                 text: "Your anonymity is our priority. We create zones of absolute tranquility in the heart of the region. Fortuna Private Club privacy protocols ensure complete protection of your personal life and business activities from external noise.",
                 type: "cinematic-text",
-                image: "assets/images/club_privacy.png"
+                image: "/assets/images/club_privacy.png"
             },
             {
                 id: "experience",
@@ -267,6 +293,32 @@ const clubData = {
                         text: "Personal coordination and delicate accompaniment during your stay in the region."
                     }
                 ]
+            },
+            {
+                id: "gallery-showcase",
+                label: "— CLUB RESIDENCES —",
+                title: "Spaces That Inspire",
+                subtitle: "Fortuna Private Club · Alanya, Turkey",
+                description: "Every residence in our collection is a carefully selected space where Mediterranean architecture, privacy, and flawless service create an environment for authentic rest. We present not just properties — we unlock a way of life.",
+                type: "gallery-card",
+                // ─────────────────────────────────────────────────────────────────
+                // IMAGE CONFIGURATION — the single source of truth for gallery photos
+                // To add images from Google Drive, replace placeholder URLs
+                // with direct links in the format:
+                //   https://lh3.googleusercontent.com/d/<FILE_ID>=w1200
+                // Google Drive folder:
+                //   https://drive.google.com/drive/folders/19GBFBiOZOSt9hDi29VYTLq6bXPhYlmL7
+                // ─────────────────────────────────────────────────────────────────
+                imageUrls: [
+                    // Add direct Google Drive image URLs here
+                    // Example: "https://lh3.googleusercontent.com/d/FILE_ID=w1200"
+                ],
+                // ─────────────────────────────────────────────────────────────────
+                // YOUTUBE — insert video URL to activate the embedded player
+                // ─────────────────────────────────────────────────────────────────
+                youtubeVideoUrl: "",  // Example: "https://www.youtube.com/watch?v=XXXXXXXXXXX"
+                callToActionText: "Request Invitation",
+                callToActionLink: "https://t.me/fortuna_private_club"
             },
             {
                 id: "vision",

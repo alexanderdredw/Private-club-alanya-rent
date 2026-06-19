@@ -1989,8 +1989,8 @@ const apartmentsData = [
       "en": "2+1, 120m²"
     },
     "price": {
-      "ru": "От €70 / сутки",
-      "en": "From €70 / night"
+      "ru": "От €120 / сутки",
+      "en": "From €120 / night"
     },
     "amenities": [
       "wifi",
@@ -2080,7 +2080,268 @@ const apartmentsData = [
         "rating": 5
       }
     ]
+  },
+  {
+    "id": "17 Mah",
+    "title": {
+      "ru": "RUBY TOWER 1+1 Banana garden Oasis",
+      "en": "RUBY TOWER 1+1 Banana garden Oasis"
+    },
+    "description": {
+      "ru": "Уютная новая квартира в престижном комплексе Ruby Tower в центре Махмутлара. Первая сдача, вид на банановые плантации, полная инфраструктура, 600м до моря.",
+      "en": "Cozy new apartment in the prestigious Ruby Tower complex in the center of Mahmutlar. First rental, view of banana plantations, full infrastructure, 600m to the sea."
+    },
+    "richDescription": {
+      "ru": "<div class=\"premium-desc pd-v3\">\n\n  <!-- LEAD TEXT -->\n  <p class=\"pd-lead-text\">\n    Представляем уютную новую квартиру в престижном жилом комплексе Ruby Tower, расположенном в самом центре района Махмутлар (Алания). Идеальный вариант для отдыха, зимовки и длительного проживания на Средиземном побережье Турции с приятным видом на зеленые банановые плантации.\n  </p>\n\n  <!-- QUICK FACTS BADGES -->\n  <div class=\"pd-facts-row\">\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">50 м²</span><span class=\"pd-fact-label\">Площадь</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">2</span><span class=\"pd-fact-label\">Этаж</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">1+1</span><span class=\"pd-fact-label\">Планировка</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">До 4</span><span class=\"pd-fact-label\">Гостей</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">600 м</span><span class=\"pd-fact-label\">До моря</span></div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- WHY CHOOSE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Почему эта квартира</div>\n    <ul class=\"pd-usp-list\">\n      <li>Первая сдача — абсолютно новая качественная мебель и техника Bosch</li>\n      <li>Приятный вид на зеленые банановые плантации (атмосфера спокойствия)</li>\n      <li>Престижный жилой комплекс в самом центре района Махмутлар</li>\n      <li>Комплименты для гостей: вода, тарелка свежих фруктов, одноразовые тапочки</li>\n      <li>Всего в 600 метрах от Средиземного моря</li>\n    </ul>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INFRASTRUCTURE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Инфраструктура Ruby Tower</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Бассейны и Вода</div>\n        <ul class=\"pd-col-list\">\n          <li>Открытый бассейн</li>\n          <li>Крытый бассейн</li>\n          <li>Водная горка</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">SPA и Релакс</div>\n        <ul class=\"pd-col-list\">\n          <li>Турецкий хамам</li>\n          <li>Сауна</li>\n          <li>Паровая комната</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Спорт и Дети</div>\n        <ul class=\"pd-col-list\">\n          <li>Фитнес-зал</li>\n          <li>Детская площадка</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Сервис и Защита</div>\n        <ul class=\"pd-col-list\">\n          <li>Круглосуточная охрана</li>\n          <li>Видеонаблюдение</li>\n          <li>Парковка</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INSIDE THE APARTMENT -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Внутри квартиры</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Кухня</div>\n        <ul class=\"pd-col-list\">\n          <li>Полностью оборудованная кухня</li>\n          <li>Новая техника марки Bosch</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Гостиная</div>\n        <ul class=\"pd-col-list\">\n          <li>Раскладной диван</li>\n          <li>Smart TV 50”</li>\n          <li>Кондиционер</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Спальня</div>\n        <ul class=\"pd-col-list\">\n          <li>Двуспальная кровать</li>\n          <li>Кондиционер (всего 2)</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Техника и Интернет</div>\n        <ul class=\"pd-col-list\">\n          <li>Высокоскоростной Wi-Fi</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- ADDITIONAL INCLUSIONS -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Дополнительно включено</div>\n    <div class=\"pd-inline-list\">\n      <span>Бутилированная вода</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Тарелка свежих фруктов</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Одноразовые тапочки</span>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- LOCATION -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">В шаговой доступности</div>\n    <div class=\"pd-location-row\">\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">100 м</span><span class=\"pd-loc-name\">ТЦ Akdeniz Park AVM и субботний рынок</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">300 м</span><span class=\"pd-loc-name\">ТЦ Yekta Mall</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-name\">Супермаркеты, кафе, рестораны</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">600 м</span><span class=\"pd-loc-name\">До моря</span></div>\n    </div>\n    \n  </div>\n\n</div>",
+      "en": "<div class=\"premium-desc pd-v3\">\n\n  <!-- LEAD TEXT -->\n  <p class=\"pd-lead-text\">\n    We present a cozy new apartment in the prestigious Ruby Tower residential complex, located in the very center of the Mahmutlar district (Alanya). An ideal option for a vacation, wintering, and long-term living on the Mediterranean coast of Turkey with a pleasant view of the green banana plantations.\n  </p>\n\n  <!-- QUICK FACTS BADGES -->\n  <div class=\"pd-facts-row\">\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">50 m²</span><span class=\"pd-fact-label\">Area</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">2</span><span class=\"pd-fact-label\">Floor</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">1+1</span><span class=\"pd-fact-label\">Layout</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">Up to 4</span><span class=\"pd-fact-label\">Guests</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">600 m</span><span class=\"pd-fact-label\">To Sea</span></div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- WHY CHOOSE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Why this apartment</div>\n    <ul class=\"pd-usp-list\">\n      <li>First rental — absolutely new high-quality furniture and Bosch appliances</li>\n      <li>Pleasant view of green banana plantations (atmosphere of tranquility)</li>\n      <li>Prestigious residential complex in the very center of the Mahmutlar district</li>\n      <li>Compliments for guests: water, a plate of fresh fruit, disposable slippers</li>\n      <li>Only 600 meters from the Mediterranean Sea</li>\n    </ul>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INFRASTRUCTURE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Ruby Tower Infrastructure</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Pools & Water</div>\n        <ul class=\"pd-col-list\">\n          <li>Outdoor pool</li>\n          <li>Indoor pool</li>\n          <li>Water slide</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">SPA & Relax</div>\n        <ul class=\"pd-col-list\">\n          <li>Turkish hamam</li>\n          <li>Sauna</li>\n          <li>Steam room</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Sports & Kids</div>\n        <ul class=\"pd-col-list\">\n          <li>Fitness gym</li>\n          <li>Childrens playground</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Service & Security</div>\n        <ul class=\"pd-col-list\">\n          <li>24/7 security</li>\n          <li>Video surveillance</li>\n          <li>Parking</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INSIDE THE APARTMENT -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Inside the Apartment</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Kitchen</div>\n        <ul class=\"pd-col-list\">\n          <li>Fully equipped kitchen</li>\n          <li>New Bosch appliances</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Living Room</div>\n        <ul class=\"pd-col-list\">\n          <li>Fold-out sofa</li>\n          <li>50” Smart TV</li>\n          <li>Air conditioning</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Bedroom</div>\n        <ul class=\"pd-col-list\">\n          <li>Double bed</li>\n          <li>Air conditioning (2 in total)</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Tech & Internet</div>\n        <ul class=\"pd-col-list\">\n          <li>High-speed Wi-Fi</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- ADDITIONAL INCLUSIONS -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Additionally Included</div>\n    <div class=\"pd-inline-list\">\n      <span>Bottled water</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Plate of fresh fruits</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Disposable slippers</span>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- LOCATION -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Walking Distance</div>\n    <div class=\"pd-location-row\">\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">100 m</span><span class=\"pd-loc-name\">Akdeniz Park AVM & Saturday market</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">300 m</span><span class=\"pd-loc-name\">Yekta Mall</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-name\">Supermarkets, cafes, restaurants</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">600 m</span><span class=\"pd-loc-name\">To the sea</span></div>\n    </div>\n    \n  </div>\n\n</div>"
+    },
+    "size": {
+      "ru": "50 м²",
+      "en": "50 m²"
+    },
+    "price": {
+      "ru": "От 50 € / сутки",
+      "en": "From €50 / night"
+    },
+    "amenities": [
+      "wifi",
+      "pool",
+      "ac",
+      "parking",
+      "kitchen"
+    ],
+    "photosDir": "17 Mah",
+    "photos": [
+      "1.png",
+      "2.png",
+      "3.png",
+      "4.png",
+      "5.png",
+      "6.png",
+      "7.png",
+      "8.png",
+      "9.png",
+      "10.png",
+      "11.png",
+      "12.png",
+      "13.png",
+      "14.png",
+      "15.png",
+      "16.png",
+      "17.png",
+      "18.png",
+      "19.png",
+      "20.png",
+      "21.png",
+      "22.png",
+      "23.png",
+      "24.png",
+      "25.png",
+      "26.png",
+      "27.png",
+      "28.png",
+      "29.png",
+      "30.png",
+      "31.png"
+    ],
+    "videoDir": "",
+    "video": "https://youtu.be/U_OY5NLMsSY?si=Cpz3irZLg9HEiXLu",
+    "premiumHighlights": [
+      {
+        "icon": "fruit",
+        "text": "Приветственный сет (фрукты и вода)"
+      },
+      {
+        "icon": "climate",
+        "text": "Климат-контроль к заезду"
+      },
+      {
+        "icon": "clean",
+        "text": "Чистота 5*"
+      },
+      {
+        "icon": "concierge",
+        "text": "Консьерж-сервис 24/7"
+      }
+    ],
+    "reviews": []
   }
+,
+  {
+  "id": "021 Mah",
+  "title": {
+    "ru": "Апартаменты ALARA PARK 2+1",
+    "en": "ALARA PARK 2+1 Apartments"
+  },
+  "description": {
+    "ru": "Уютный и богатый дизайн интерьера с роскошной мебелью, два больших балкона, два санузла. 400 метров до моря.",
+    "en": "Cozy and rich interior design with luxury furniture, two large balconies, two bathrooms. 400 meters to the sea."
+  },
+  "richDescription": {
+    "ru": "<div class=\"premium-desc pd-v3\">\n\n  <!-- LEAD TEXT -->\n  <p class=\"pd-lead-text\">\n    Уютный и богатый дизайн интерьера с роскошной мебелью. Просторная площадь квартиры 120 м², два больших балкона, два санузла, письменный стол для работы, телевизор и высокоскоростной интернет. Это место является идеальным вариантом для отдыха класса люкс.\n  </p>\n\n  <!-- QUICK FACTS BADGES -->\n  <div class=\"pd-facts-row\">\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">120 м²</span><span class=\"pd-fact-label\">Площадь</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">6</span><span class=\"pd-fact-label\">Этаж</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">2+1</span><span class=\"pd-fact-label\">Планировка</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">5</span><span class=\"pd-fact-label\">Гостей</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">400 м</span><span class=\"pd-fact-label\">До моря</span></div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- WHY CHOOSE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Почему эта квартира</div>\n    <ul class=\"pd-usp-list\">\n      <li>Просторная площадь 120 м², 2 спальни и 2 санузла</li>\n      <li>Два больших балкона (вид на бассейн, юго-восточная сторона)</li>\n      <li>Крупнейший комплекс премиум-класса от Yekta Homes с собственным пляжем</li>\n      <li>Эксклюзивный дизайн, теплые полы, качественная премиум-мебель</li>\n      <li>Специальное рабочее место (письменный стол для работы)</li>\n    </ul>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INFRASTRUCTURE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Инфраструктура Yekta Alara Park</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Бассейны и Море</div>\n        <ul class=\"pd-col-list\">\n          <li>Собственный частный пляж</li>\n          <li>Открытый бассейн с зонами отдыха</li>\n          <li>Закрытый бассейн с подогревом</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">SPA и Релакс</div>\n        <ul class=\"pd-col-list\">\n          <li>Римская сауна</li>\n          <li>Финская сауна</li>\n          <li>Турецкий хамам</li>\n          <li>СПА-зона и комната отдыха</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Территория</div>\n        <ul class=\"pd-col-list\">\n          <li>Эко-дизайн и парковые зоны</li>\n          <li>Озеленение с малыми арх. формами</li>\n          <li>Игровая комната</li>\n          <li>Вечернее освещение фасадов</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Премиум-Сервис</div>\n        <ul class=\"pd-col-list\">\n          <li>Лобби уровня премиум-отелей (мрамор)</li>\n          <li>Лифты в комплектации DELUX</li>\n          <li>Кодовые замки и ограждение</li>\n          <li>Парковка для резидентов</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INSIDE THE APARTMENT -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Внутри квартиры</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Кухня</div>\n        <ul class=\"pd-col-list\">\n          <li>Холодильник и Посудомоечная машина</li>\n          <li>Духовой шкаф и Микроволновка</li>\n          <li>Электрочайник и Вытяжка</li>\n          <li>Полный набор посуды</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Гостиная</div>\n        <ul class=\"pd-col-list\">\n          <li>Диван</li>\n          <li>Телевизор 50\"</li>\n          <li>Письменный стол для работы</li>\n          <li>Кондиционер</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Спальни (2)</div>\n        <ul class=\"pd-col-list\">\n          <li>Две двуспальные кровати</li>\n          <li>Два кондиционера (всего 3)</li>\n          <li>Два больших балкона</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Техника и Санузлы</div>\n        <ul class=\"pd-col-list\">\n          <li>Два санузла и Теплые полы</li>\n          <li>Стиральная машина и Бойлер</li>\n          <li>Пылесос</li>\n          <li>Высокоскоростной интернет</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- ADDITIONAL INCLUSIONS -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Дополнительно включено</div>\n    <div class=\"pd-inline-list\">\n      <span>Постельное бельё</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Полотенца (вкл. пляжные)</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Пылесос</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Утюг и гладилка</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Сушилка</span>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- LOCATION -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Локация</div>\n    <div class=\"pd-location-row\">\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-name\">Центр района Махмутлар</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">500 м</span><span class=\"pd-loc-name\">Кафе, рестораны, магазины, аптеки</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">500 м</span><span class=\"pd-loc-name\">ТЦ Акдениз и субботний фермерский рынок</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">400 м</span><span class=\"pd-loc-name\">До моря и собственного пляжа</span></div>\n    </div>\n    \n  </div>\n\n</div>",
+    "en": "<div class=\"premium-desc pd-v3\">\n\n  <!-- LEAD TEXT -->\n  <p class=\"pd-lead-text\">\n    Cozy and rich interior design with luxury furniture. A spacious area of 120 m², two large balconies, two bathrooms, a work desk, a TV, and high-speed internet. This place is an ideal option for a luxury holiday.\n  </p>\n\n  <!-- QUICK FACTS BADGES -->\n  <div class=\"pd-facts-row\">\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">120 m²</span><span class=\"pd-fact-label\">Area</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">6</span><span class=\"pd-fact-label\">Floor</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">2+1</span><span class=\"pd-fact-label\">Layout</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">5</span><span class=\"pd-fact-label\">Guests</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">400 m</span><span class=\"pd-fact-label\">To Sea</span></div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- WHY CHOOSE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Why this apartment</div>\n    <ul class=\"pd-usp-list\">\n      <li>Spacious 120 m² area, 2 bedrooms and 2 bathrooms</li>\n      <li>Two large balconies (pool view, southeastern side)</li>\n      <li>The largest premium complex by Yekta Homes with a private beach</li>\n      <li>Exclusive design, heated floors, high-quality premium furniture</li>\n      <li>Special workspace (desk for work)</li>\n    </ul>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INFRASTRUCTURE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Yekta Alara Park Infrastructure</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Pools & Sea</div>\n        <ul class=\"pd-col-list\">\n          <li>Private beach</li>\n          <li>Outdoor pool with recreation areas</li>\n          <li>Indoor heated pool</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">SPA & Relax</div>\n        <ul class=\"pd-col-list\">\n          <li>Roman sauna</li>\n          <li>Finnish sauna</li>\n          <li>Turkish hamam</li>\n          <li>SPA area and relaxation room</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Territory</div>\n        <ul class=\"pd-col-list\">\n          <li>Eco-design and park areas</li>\n          <li>Landscaping with small architectural forms</li>\n          <li>Game room</li>\n          <li>Evening facade lighting</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Premium Service</div>\n        <ul class=\"pd-col-list\">\n          <li>Premium hotel-level lobby (marble)</li>\n          <li>DELUX configuration elevators</li>\n          <li>Code locks and fencing</li>\n          <li>Parking for residents</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INSIDE THE APARTMENT -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Inside the Apartment</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Kitchen</div>\n        <ul class=\"pd-col-list\">\n          <li>Refrigerator & Dishwasher</li>\n          <li>Oven & Microwave</li>\n          <li>Electric kettle & Extractor hood</li>\n          <li>Full set of dishes</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Living Room</div>\n        <ul class=\"pd-col-list\">\n          <li>Sofa</li>\n          <li>50\" TV</li>\n          <li>Desk for work</li>\n          <li>Air conditioning</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Bedrooms (2)</div>\n        <ul class=\"pd-col-list\">\n          <li>Two double beds</li>\n          <li>Two air conditioners (3 in total)</li>\n          <li>Two large balconies</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Appliances & Baths</div>\n        <ul class=\"pd-col-list\">\n          <li>Two bathrooms & Heated floors</li>\n          <li>Washing machine & Boiler</li>\n          <li>Vacuum cleaner</li>\n          <li>High-speed internet</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- ADDITIONAL INCLUSIONS -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Additionally Included</div>\n    <div class=\"pd-inline-list\">\n      <span>Bed linen</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Towels (incl. beach)</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Vacuum cleaner</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Iron and board</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Drying rack</span>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- LOCATION -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Location</div>\n    <div class=\"pd-location-row\">\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-name\">Center of Mahmutlar district</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">500 m</span><span class=\"pd-loc-name\">Cafes, restaurants, shops, pharmacies</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">500 m</span><span class=\"pd-loc-name\">Akdeniz Mall & Saturday farmers market</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">400 m</span><span class=\"pd-loc-name\">To the sea and private beach</span></div>\n    </div>\n    \n  </div>\n\n</div>"
+  },
+  "size": {
+    "ru": "120 м²",
+    "en": "120 m²"
+  },
+  "price": {
+    "ru": "От 100 € / сутки",
+    "en": "From €100 / night"
+  },
+  "amenities": [
+    "wifi",
+    "pool",
+    "ac",
+    "parking",
+    "kitchen"
+  ],
+  "photosDir": "ALARA PARK/ФОТО",
+  "photos": [
+    "1.PNG",
+    "2.PNG",
+    "3.PNG",
+    "4.PNG",
+    "5.PNG",
+    "6.PNG",
+    "7.PNG",
+    "8.PNG",
+    "10.PNG",
+    "11.jpg",
+    "12.PNG",
+    "13.PNG",
+    "14.PNG",
+    "15.PNG",
+    "16.PNG",
+    "17.jpg",
+    "18.PNG",
+    "19.PNG",
+    "20.PNG",
+    "21.PNG",
+    "22.jpg",
+    "23.jpg",
+    "24.jpg",
+    "25.PNG",
+    "26.jpg",
+    "27.PNG",
+    "28.PNG",
+    "29.PNG",
+    "30.PNG",
+    "31.jpg",
+    "32.PNG",
+    "33.PNG",
+    "34.jpg",
+    "35.PNG",
+    "42.jpg",
+    "43.jpg"
+  ],
+  "videoDir": "ALARA PARK/ВИДЕО",
+  "video": "https://youtube.com/shorts/ZaL1wOr2bQU?si=LO6lHcDw2aAwDugJ",
+  "premiumHighlights": [
+    {
+      "icon": "fruit",
+      "text": "Приветственный сет (фрукты и вода)"
+    },
+    {
+      "icon": "climate",
+      "text": "Климат-контроль к заезду"
+    },
+    {
+      "icon": "clean",
+      "text": "Чистота 5*"
+    },
+    {
+      "icon": "concierge",
+      "text": "Консьерж-сервис 24/7"
+    }
+  ],
+  "reviews": []
+}
+,
+  {
+  "id": "18 Mah",
+  "title": {
+    "ru": "RUBY TOWER 1+1",
+    "en": "RUBY TOWER 1+1"
+  },
+  "description": {
+    "ru": "Уютная новая квартира на 8 этаже в престижном комплексе Ruby Tower в центре Махмутлара. Первая сдача, вид на горы и море, полная инфраструктура, 600м до моря.",
+    "en": "Cozy new apartment on the 8th floor in the prestigious Ruby Tower complex in the center of Mahmutlar. First rental, view of mountains and sea, full infrastructure, 600m to the sea."
+  },
+  "richDescription": {
+    "ru": "<div class=\"premium-desc pd-v3\">\n\n  <!-- LEAD TEXT -->\n  <p class=\"pd-lead-text\">\n    Представляем уютную новую квартиру в престижном жилом комплексе Ruby Tower, расположенном в самом центре района Махмутлар (Алания). Идеальный вариант для отдыха, зимовки и длительного проживания на Средиземном побережье Турции. На балконе квартиры открывается вид на горы и море, создавая атмосферу спокойствия и отдыха.\n  </p>\n\n  <!-- QUICK FACTS BADGES -->\n  <div class=\"pd-facts-row\">\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">50 м²</span><span class=\"pd-fact-label\">Площадь</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">8</span><span class=\"pd-fact-label\">Этаж</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">1+1</span><span class=\"pd-fact-label\">Планировка</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">До 4</span><span class=\"pd-fact-label\">Гостей</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">600 м</span><span class=\"pd-fact-label\">До моря</span></div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- WHY CHOOSE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Почему эта квартира</div>\n    <ul class=\"pd-usp-list\">\n      <li>Первая сдача — абсолютно новая качественная мебель и техника Bosch</li>\n      <li>Прекрасный вид на горы и море с балкона (атмосфера спокойствия)</li>\n      <li>Престижный жилой комплекс в самом центре района Махмутлар</li>\n      <li>Комплименты для гостей: вода, тарелка свежих фруктов, одноразовые тапочки</li>\n      <li>Всего в 600 метрах от Средиземного моря</li>\n    </ul>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INFRASTRUCTURE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Инфраструктура Ruby Tower</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Бассейны и Вода</div>\n        <ul class=\"pd-col-list\">\n          <li>Открытый бассейн</li>\n          <li>Крытый бассейн</li>\n          <li>Водная горка</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">SPA и Релакс</div>\n        <ul class=\"pd-col-list\">\n          <li>Турецкий хамам</li>\n          <li>Сауна</li>\n          <li>Паровая комната</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Спорт и Дети</div>\n        <ul class=\"pd-col-list\">\n          <li>Фитнес-зал</li>\n          <li>Детская площадка</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Сервис и Защита</div>\n        <ul class=\"pd-col-list\">\n          <li>Круглосуточная охрана</li>\n          <li>Видеонаблюдение</li>\n          <li>Парковка</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INSIDE THE APARTMENT -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Внутри квартиры</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Кухня</div>\n        <ul class=\"pd-col-list\">\n          <li>Полностью оборудованная кухня</li>\n          <li>Новая техника марки Bosch</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Гостиная</div>\n        <ul class=\"pd-col-list\">\n          <li>Раскладной диван</li>\n          <li>Smart TV 50”</li>\n          <li>Кондиционер</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Спальня</div>\n        <ul class=\"pd-col-list\">\n          <li>Двуспальная кровать</li>\n          <li>Кондиционер (всего 2)</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Техника и Интернет</div>\n        <ul class=\"pd-col-list\">\n          <li>Высокоскоростной Wi-Fi</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- ADDITIONAL INCLUSIONS -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Дополнительно включено</div>\n    <div class=\"pd-inline-list\">\n      <span>Бутилированная вода</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Тарелка свежих фруктов</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Одноразовые тапочки</span>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- LOCATION -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">В шаговой доступности</div>\n    <div class=\"pd-location-row\">\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">100 м</span><span class=\"pd-loc-name\">ТЦ Akdeniz Park AVM и субботний рынок</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">300 м</span><span class=\"pd-loc-name\">ТЦ Yekta Mall</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-name\">Супермаркеты, кафе, рестораны</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">600 м</span><span class=\"pd-loc-name\">До моря</span></div>\n    </div>\n    \n  </div>\n\n</div>",
+    "en": "<div class=\"premium-desc pd-v3\">\n\n  <!-- LEAD TEXT -->\n  <p class=\"pd-lead-text\">\n    We present a cozy new apartment in the prestigious Ruby Tower residential complex, located in the very center of the Mahmutlar district (Alanya). An ideal option for a vacation, wintering, and long-term living on the Mediterranean coast of Turkey. The balcony offers a view of the mountains and the sea, creating an atmosphere of tranquility and relaxation.\n  </p>\n\n  <!-- QUICK FACTS BADGES -->\n  <div class=\"pd-facts-row\">\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">50 m²</span><span class=\"pd-fact-label\">Area</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">8</span><span class=\"pd-fact-label\">Floor</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">1+1</span><span class=\"pd-fact-label\">Layout</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">Up to 4</span><span class=\"pd-fact-label\">Guests</span></div>\n    <div class=\"pd-fact\"><span class=\"pd-fact-value\">600 m</span><span class=\"pd-fact-label\">To Sea</span></div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- WHY CHOOSE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Why this apartment</div>\n    <ul class=\"pd-usp-list\">\n      <li>First rental — absolutely new high-quality furniture and Bosch appliances</li>\n      <li>View of the mountains and sea from the balcony (atmosphere of tranquility)</li>\n      <li>Prestigious residential complex in the very center of the Mahmutlar district</li>\n      <li>Compliments for guests: water, a plate of fresh fruit, disposable slippers</li>\n      <li>Only 600 meters from the Mediterranean Sea</li>\n    </ul>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INFRASTRUCTURE -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Ruby Tower Infrastructure</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Pools & Water</div>\n        <ul class=\"pd-col-list\">\n          <li>Outdoor pool</li>\n          <li>Indoor pool</li>\n          <li>Water slide</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">SPA & Relax</div>\n        <ul class=\"pd-col-list\">\n          <li>Turkish hamam</li>\n          <li>Sauna</li>\n          <li>Steam room</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Sports & Kids</div>\n        <ul class=\"pd-col-list\">\n          <li>Fitness gym</li>\n          <li>Childrens playground</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Service & Security</div>\n        <ul class=\"pd-col-list\">\n          <li>24/7 security</li>\n          <li>Video surveillance</li>\n          <li>Parking</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- INSIDE THE APARTMENT -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Inside the Apartment</div>\n    <div class=\"pd-cols-4\">\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Kitchen</div>\n        <ul class=\"pd-col-list\">\n          <li>Fully equipped kitchen</li>\n          <li>New Bosch appliances</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Living Room</div>\n        <ul class=\"pd-col-list\">\n          <li>Fold-out sofa</li>\n          <li>50” Smart TV</li>\n          <li>Air conditioning</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Bedroom</div>\n        <ul class=\"pd-col-list\">\n          <li>Double bed</li>\n          <li>Air conditioning (2 in total)</li>\n        </ul>\n      </div>\n      <div class=\"pd-col\">\n        <div class=\"pd-col-title\">Tech & Internet</div>\n        <ul class=\"pd-col-list\">\n          <li>High-speed Wi-Fi</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- ADDITIONAL INCLUSIONS -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Additionally Included</div>\n    <div class=\"pd-inline-list\">\n      <span>Bottled water</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Plate of fresh fruits</span>\n      <span class=\"pd-sep\">·</span>\n      <span>Disposable slippers</span>\n    </div>\n  </div>\n\n  <div class=\"pd-rule\"></div>\n\n  <!-- LOCATION -->\n  <div class=\"pd-section\">\n    <div class=\"pd-section-label\">Walking Distance</div>\n    <div class=\"pd-location-row\">\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">100 m</span><span class=\"pd-loc-name\">Akdeniz Park AVM & Saturday market</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">300 m</span><span class=\"pd-loc-name\">Yekta Mall</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-name\">Supermarkets, cafes, restaurants</span></div>\n      <div class=\"pd-loc-item\"><span class=\"pd-loc-time\">600 m</span><span class=\"pd-loc-name\">To the sea</span></div>\n    </div>\n    \n  </div>\n\n</div>"
+  },
+  "size": {
+    "ru": "50 м²",
+    "en": "50 m²"
+  },
+  "price": {
+    "ru": "По запросу",
+    "en": "On request"
+  },
+  "amenities": [
+    "wifi",
+    "pool",
+    "ac"
+  ],
+  "photosDir": "18 Mah/ФОТО",
+  "photos": [
+        "https://lh3.googleusercontent.com/d/1pMZr4KAMOBS5LVoVctHRMLpPcMRhgHiQ=w1200",
+        "https://lh3.googleusercontent.com/d/1_RezVPMWjc2NdX9krBeagVshkkurer6d=w1200",
+        "https://lh3.googleusercontent.com/d/1GAbnX5UoVh4DqD2iHwsqWS-EnATve1Lf=w1200",
+        "https://lh3.googleusercontent.com/d/1E7GaDPusncmmMY2iw-sZuJ9xVlMqHt-S=w1200",
+        "https://lh3.googleusercontent.com/d/1gZcer-jJ__Q8I1LD14KSMTNjzIltnVeo=w1200",
+        "https://lh3.googleusercontent.com/d/1IhEhyv2iVLNlDApw_M70iQV6Oi0Rv0Tp=w1200",
+        "https://lh3.googleusercontent.com/d/1hN_XkzUH0MwJjFR1wf-VYmkmN-em0KX4=w1200",
+        "https://lh3.googleusercontent.com/d/1sXBXWYWifjh585YElxxaaHW3ua0CyzbX=w1200",
+        "https://lh3.googleusercontent.com/d/1OvEGKnb6lo4NZeQQv0ChJqIK2SGkZd42=w1200",
+        "https://lh3.googleusercontent.com/d/10WPgNdbDCgTZ0qjFfCiILpAeTrytgHOA=w1200",
+        "https://lh3.googleusercontent.com/d/1gF38gL9MfOokh9CZzu8N3okNub2LhZ0y=w1200",
+        "https://lh3.googleusercontent.com/d/1C09ZGYR693H-E_4aiV0cu0rmt6LuPKld=w1200",
+        "https://lh3.googleusercontent.com/d/1qHNIZPDjf350v6ylGmX4zX5uK50NHAvt=w1200",
+        "https://lh3.googleusercontent.com/d/1e1O57TWs9IheWbd4C46gGWmSfn_cqk4x=w1200",
+        "https://lh3.googleusercontent.com/d/1T_WWeSxSnBYnB4icK7SbkQh6yvpWI0zy=w1200",
+        "https://lh3.googleusercontent.com/d/1cnKh4oDK1MmPLZwvxAZUXu7RtNtdk9Pw=w1200",
+        "https://lh3.googleusercontent.com/d/1dgCCI1fzIN012ywHrM6Qff1GTs6XWDmW=w1200",
+        "https://lh3.googleusercontent.com/d/1frQmNW4MQuknas5kUziI5X9-Bm6tNndv=w1200",
+        "https://lh3.googleusercontent.com/d/16U6jjyM5pV89zHdy_X656rRJPcZw-K4Q=w1200",
+        "https://lh3.googleusercontent.com/d/1V30t11T-L3ZakOOgPhYAkiIGMzFqrsck=w1200",
+        "https://lh3.googleusercontent.com/d/1JwuCCaVtLyncWf32Fu36hjbEbCvvbb31=w1200",
+        "https://lh3.googleusercontent.com/d/13iSZW41XqXEM-IK8ci6L8sRsYyUj9gb1=w1200",
+        "https://lh3.googleusercontent.com/d/1caRiscjBkmgyvPkYfOCkekTg2hzpZJKe=w1200",
+        "https://lh3.googleusercontent.com/d/1cL0MgxZM6FbtUaapwlhxjpQqZ-riI_1M=w1200",
+        "https://lh3.googleusercontent.com/d/1komUkMlYq1Kg0C0j83FtmrQP0F0Ln7cC=w1200",
+        "https://lh3.googleusercontent.com/d/13rqU6Gu_xAl7MfgDjw8TmQ9nykYp_Vpa=w1200",
+        "https://lh3.googleusercontent.com/d/1dlaDX2EHMb2-VeQdQdpqPrQgT64yZc6n=w1200",
+        "https://lh3.googleusercontent.com/d/1meBorPSKKECUtOapgCOjF0RaNNqUdzuY=w1200",
+        "https://lh3.googleusercontent.com/d/1etkp0VMFyy9GQT9e5Kcpz45X_Uq_axFc=w1200",
+        "https://lh3.googleusercontent.com/d/1Krr_xmKK8gbnZEOciI0kpt2-mQnPR00A=w1200",
+        "https://lh3.googleusercontent.com/d/1AzmbHMZ0UzQpNYrvPSOymYN8qCJtbTlq=w1200",
+        "https://lh3.googleusercontent.com/d/1Gxk-b9Th_7akmhDwgRnEvj5kn8tbfbRb=w1200",
+        "https://lh3.googleusercontent.com/d/1madXXFWruQngD1wV8Al0p-a5wq-avXhi=w1200",
+        "https://lh3.googleusercontent.com/d/1kAvKQa56eyyf1rRob3Fg-Y3qafvmRyvR=w1200",
+        "https://lh3.googleusercontent.com/d/1eZe-7C_Tmm9Zzf4iwIAQ0K_soRzIOOpN=w1200",
+        "https://lh3.googleusercontent.com/d/17KKoS5WXvzkuV8gyGrRQ6k0pAy-THcOl=w1200",
+        "https://lh3.googleusercontent.com/d/14zbRokHiD8YhjOzugL5a6DO4D2ijng7_=w1200",
+        "https://lh3.googleusercontent.com/d/1oOix05ltExM3CvyDMQno6uVG3VIjt_4s=w1200",
+        "https://lh3.googleusercontent.com/d/1giLoWAtUix5cChzf0l99qKHVcUb2z6q8=w1200",
+        "https://lh3.googleusercontent.com/d/1hQzBO-z_T9BooO7KLMkQGEq1KeRM9yq1=w1200"
+    ],
+  "videoDir": "18 Mah",
+  "video": "https://youtu.be/hOlkLEi61So?si=7Me-bdJhGlrzNq_L",
+  "premiumHighlights": [
+    {
+      "icon": "fruit",
+      "text": "Приветственный сет (фрукты и вода)"
+    },
+    {
+      "icon": "clean",
+      "text": "Чистота 5*"
+    }
+  ],
+  "reviews": []
+}
 ];
 
 if (typeof module !== "undefined") module.exports = apartmentsData;

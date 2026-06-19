@@ -16,6 +16,14 @@
 !/[0-9]* Mah v/
 !/[0-9]* mah v/
 !/PHOTOS/
+!/17 Mah/
+
+# Re-include SEO & routing files
+!/netlify.toml
+!/_redirects
+!/sitemap.xml
+!/robots.txt
+
 
 # Exclude specific non-app JS files in subfolders (if any)
 **/classify.js

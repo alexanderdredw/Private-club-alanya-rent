@@ -879,3 +879,403 @@
         max-width: 100%;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GALLERY-CARD SECTION
+   Premium two-column card with image carousel, YouTube embed, and CTA.
+   Design follows existing club.css tokens and layout language.
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* --- WRAPPER GRID (text | media) --- */
+.gc-section .container {
+    max-width: 1380px;
+    margin: 0 auto;
+}
+
+.gc-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 100px;
+    align-items: center;
+}
+
+/* --- TEXT COLUMN --- */
+.gc-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.gc-subtitle-line {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--p-gold);
+    margin-bottom: 28px;
+    opacity: 0.75;
+    font-weight: 500;
+}
+
+.gc-description {
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 0;
+    letter-spacing: 0.01em;
+}
+
+/* Premium CTA button — matches btn-luxe-cinematic aesthetics */
+.gc-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 48px;
+    padding: 18px 44px;
+    background: rgba(200, 169, 126, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--p-gold);
+    border: 1px solid rgba(200, 169, 126, 0.35);
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: var(--p-transition);
+    position: relative;
+    overflow: hidden;
+    align-self: flex-start;
+}
+
+.gc-cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+    transition: 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gc-cta-btn:hover {
+    background: rgba(200, 169, 126, 0.12);
+    border-color: rgba(200, 169, 126, 0.75);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 14px 38px rgba(0,0,0,0.28), 0 0 22px rgba(200, 169, 126, 0.12);
+}
+
+.gc-cta-btn:hover::before { left: 100%; }
+.gc-cta-btn svg { transition: transform 0.4s ease; flex-shrink: 0; }
+.gc-cta-btn:hover svg { transform: translateX(6px); }
+
+/* --- MEDIA COLUMN --- */
+.gc-media-col {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* --- CAROUSEL --- */
+.gc-carousel {
+    position: relative;
+    width: 100%;
+    /* Fixed aspect ratio — prevents layout shift regardless of image load state */
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.03);
+    box-shadow:
+        0 40px 80px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(200, 169, 126, 0.08);
+}
+
+.gc-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Slides stack on top of each other, only active is visible */
+.gc-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.gc-slide--active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Image wrapper — full coverage, prevents skeleton/image overlap */
+.gc-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Skeleton shimmer while image loads */
+.gc-img-skeleton {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(200, 169, 126, 0.04) 0%,
+        rgba(200, 169, 126, 0.10) 50%,
+        rgba(200, 169, 126, 0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: gc-shimmer 1.8s ease-in-out infinite;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+}
+
+@keyframes gc-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* The actual image */
+.gc-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 8s ease-out;
+    z-index: 2;
+    transform: scale(1.04);
+}
+
+.gc-img--loaded {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Error state */
+.gc-img-wrap--error::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 27, 45, 0.8);
+    z-index: 3;
+}
+
+/* Arrow navigation buttons */
+.gc-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 169, 126, 0.3);
+    background: rgba(10, 18, 30, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--p-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--p-transition);
+    opacity: 0;
+}
+
+.gc-carousel:hover .gc-arrow,
+.gc-carousel:focus-within .gc-arrow {
+    opacity: 1;
+}
+
+.gc-arrow--prev { left: 16px; }
+.gc-arrow--next { right: 16px; }
+
+.gc-arrow:hover {
+    background: rgba(200, 169, 126, 0.18);
+    border-color: var(--p-gold);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.gc-arrow svg { width: 20px; height: 20px; }
+
+/* Counter badge (e.g. "3 / 8") */
+.gc-counter {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    z-index: 10;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.75);
+    background: rgba(10, 18, 30, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    pointer-events: none;
+}
+
+.gc-counter-sep {
+    opacity: 0.45;
+    margin: 0 2px;
+}
+
+/* Dot indicators */
+.gc-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.gc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    padding: 0;
+}
+
+.gc-dot--active {
+    background: var(--p-gold);
+    transform: scale(1.5);
+    box-shadow: 0 0 8px rgba(200, 169, 126, 0.5);
+}
+
+/* --- EMPTY STATE (no images configured yet) --- */
+.gc-empty-state {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border: 1px dashed rgba(200, 169, 126, 0.2);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.02);
+    color: rgba(255,255,255,0.25);
+}
+
+.gc-empty-state p {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+/* --- YOUTUBE EMBED --- */
+.gc-yt-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.gc-yt-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--p-gold);
+    opacity: 0.8;
+}
+
+.gc-yt-frame-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.5);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.gc-yt-iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────────────────── */
+
+/* Tablet: stack columns */
+@media (max-width: 1024px) {
+    .gc-wrapper {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .gc-text-col {
+        text-align: center;
+        align-items: center;
+    }
+
+    .gc-cta-btn {
+        align-self: center;
+    }
+
+    .gc-subtitle-line {
+        text-align: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .gc-wrapper {
+        gap: 44px;
+    }
+
+    .gc-carousel,
+    .gc-empty-state {
+        aspect-ratio: 3 / 2;
+    }
+
+    .gc-arrow {
+        opacity: 1; /* Always visible on touch */
+        width: 38px;
+        height: 38px;
+    }
+
+    .gc-arrow--prev { left: 10px; }
+    .gc-arrow--next { right: 10px; }
+
+    .gc-cta-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 16px 28px;
+    }
+
+    .gc-description {
+        font-size: 1rem;
+    }
+}
+
+/* Ultra-small phones */
+@media (max-width: 400px) {
+    .gc-carousel,
+    .gc-empty-state {
+        aspect-ratio: 4 / 3;
+    }
+
+    .gc-cta-btn {
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        padding: 14px 22px;
+    }
+}
