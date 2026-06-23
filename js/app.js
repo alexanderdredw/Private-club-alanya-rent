@@ -167,40 +167,52 @@ function getYouTubeId(url) {
 }
 
 // Title formatting helper
-function formatTitleHTML(titleStr, isCatalog = false) {
+function formatTitleHTML(titleStr, apt = null, isCatalog = false) {
     if (!titleStr) return '';
+    
+    if (typeof apt === 'boolean') {
+        isCatalog = apt;
+        apt = null;
+    }
     
     if (isCatalog) {
         // Strip out "Art de Vivre" for a shorter preview title
         titleStr = titleStr.replace(' Art de Vivre', '');
     }
     
-    // Extract the badge part (e.g., " 2+1", " 1+1 Duplex")
-    let badgeMatch = titleStr.match(/\s*(\d\+\d(?: Дуплекс| Dbl)?)/i);
+    // Extract the badge part (e.g., " 2+1", " 1+1 Duplex") but only keep the "2+1" for the badge text
+    let badgeMatch = titleStr.match(/\s*(\d\+\d)(?: Дуплекс| Dbl)?/i);
     let badgeHTML = '';
     
     if (badgeMatch) {
-        // Remove the badge text from the original string and trim
+        // Remove the full matched text (including "Дуплекс") from the title string and trim
         titleStr = titleStr.replace(badgeMatch[0], '').trim();
-        // Wrap badge in its own span, no leading space here as we'll use gap
         badgeHTML = `<span class="apt-badge">${badgeMatch[1]}</span>`;
+    } else if (apt && apt.size) {
+        let sizeStr = typeof apt.size === 'object' ? (apt.size[state.lang] || apt.size['ru']) : apt.size;
+        if (sizeStr) {
+            let sizeMatch = sizeStr.match(/^(\d\+\d)(?: Дуплекс| Dbl)?/i);
+            if (sizeMatch) {
+                badgeHTML = `<span class="apt-badge">${sizeMatch[1]}</span>`;
+            }
+        }
     }
     
     // Professional typography: bind short prepositions to the next word with a non-breaking space
     titleStr = titleStr.replace(/(^|\s)([вскоуиаВсКОУИА]|за|на|по|из|от|до|За|На|По|Из|От|До)\s+/g, '$1$2&nbsp;');
     
-    // If we have a badge, we want it to stay with the last word if possible
     if (badgeHTML) {
-        // Wrap the last word + badge in a span that prevents breaking
+        // Professional typography: keep the last word and badge together to prevent orphaned badges
         const words = titleStr.split(' ');
         if (words.length > 0) {
             const lastWord = words.pop();
             const rest = words.join(' ');
             return (rest ? rest + ' ' : '') + `<span style="white-space: nowrap;">${lastWord}&nbsp;${badgeHTML}</span>`;
         }
+        return titleStr + '&nbsp;' + badgeHTML;
     }
     
-    return titleStr + (badgeHTML ? ' ' + badgeHTML : '');
+    return titleStr;
 }
 
 function formatPriceHTML(priceStr) {
@@ -539,7 +551,7 @@ function renderHome() {
                     <img src="${mainImage}" alt="${localTitle}" loading="lazy">
                 </div>
                 <div class="apt-details">
-                    <h3 class="apt-title">${formatTitleHTML(localTitle, true)}</h3>
+                    <h3 class="apt-title">${formatTitleHTML(localTitle, apt, true)}</h3>
                     <p class="apt-desc">${localDesc}</p>
                     <div class="apt-footer">
                         <span class="apt-price">${typeof apt.price === 'object' ? formatPriceHTML(apt.price[state.lang] || apt.price['ru']) : formatPriceHTML(apt.price)}</span>
@@ -934,7 +946,7 @@ function renderApartment(aptId) {
 
             <div class="apt-info-container reveal-up">
                 <div class="apt-main-info">
-                    <h1 class="apt-detail-title">${formatTitleHTML(localTitle)}</h1>
+                    <h1 class="apt-detail-title">${formatTitleHTML(localTitle, apt)}</h1>
                     <div class="apt-detail-price">${typeof apt.price === 'object' ? formatPriceHTML(apt.price[state.lang] || apt.price['ru']) : formatPriceHTML(apt.price)}</div>
                     
                     <div class="apt-meta">
@@ -1270,7 +1282,7 @@ function renderCatalog() {
                 <img src="${mainImage}" alt="${localTitle}" loading="lazy">
             </div>
             <div class="apt-details">
-                <h3 class="apt-title">${formatTitleHTML(localTitle, true)}</h3>
+                <h3 class="apt-title">${formatTitleHTML(localTitle, apt, true)}</h3>
                 <p class="apt-desc">${localDesc}</p>
                 <div class="apt-footer">
                     <span class="apt-price">${typeof apt.price === 'object' ? formatPriceHTML(apt.price[state.lang] || apt.price['ru']) : formatPriceHTML(apt.price)}</span>

@@ -12,9 +12,10 @@ const translations = {
         nav_apartments: "Квартиры",
         nav_about: "Об Алании",
         nav_management: "Управление",
+        nav_club: "О Клубе",
         nav_contact: "Контакты",
-        btn_catalog: "Смотреть квартиры",
-        btn_wa: "Написать в Telegram",
+        btn_catalog: "Смотреть апартаменты",
+        btn_wa: "Связаться",
         btn_back: "Назад",
         btn_details: "Подробнее",
         gallery_hint: "Кликните на фото для увеличения",
@@ -25,6 +26,7 @@ const translations = {
         perk_best_price: "Гарантия лучшей цены",
         perk_fast_confirm: "Быстрое подтверждение",
         booking_hint: "Обычно отвечаем в течение 5 минут",
+        footer_disclaimer: "Fortuna Private Club является частным информационным ресурсом и экспертной lifestyle-платформой. Портал не является туроператором, туристическим агентством, арендодателем или исполнителем сервисных услуг. Все вопросы проживания, аренды, трансфера и дополнительных сервисов согласуются напрямую между гостями, владельцами объектов и независимыми лицензированными партнерами.",
         wa_contact_prefix: "Здравствуйте! Меня интересует: ",
         cta_more_title: "Откройте больше вариантов жилья",
         cta_more_btn: "Смотреть все апартаменты",
@@ -33,7 +35,7 @@ const translations = {
         // Management Page
         mgmt_hero_title: "Искусство управления вашей недвижимостью в Алании",
         mgmt_hero_sub: "От пустых стен до премиального арендного бизнеса. Мы создаём интерьеры, которые приносят доход.",
-        mgmt_btn_discuss: "Обсудить управление",
+        mgmt_btn_discuss: "Связаться",
         mgmt_badge_1: "Оживите ваши инвестиции",
         mgmt_title_1: "От потенциала к прибыли",
         mgmt_text_1: "Часто покупка недвижимости в Турции сопровождается большими ожиданиями от аренды и доходности. Однако на практике многие владельцы сталкиваются с тем, что квартира остаётся закрытой, а инвестиционный потенциал — нереализованным. Если ваш объект сейчас пустует или не приносит желаемого результата, ему просто не хватает финального профессионального шага. Мы помогаем превратить «просто покупку» в работающий актив. Пока другие дают обещания, мы берём на себя реализацию: от полной комплектации пустой квартиры мебелью и техникой до авторского хоумстейджинга. Мы создаём продукт, который выделяется на рынке и начинает приносить доход с первых дней.",
@@ -54,7 +56,8 @@ const translations = {
         mgmt_service_desc_6: "Контроль оплат, ежемесячные отчёты и полная прозрачность всех финансовых операций.",
         mgmt_cta_title: "Готовы превратить недвижимость в актив?",
         mgmt_cta_sub: "Свяжитесь с нами — мы разработаем индивидуальную стратегию управления вашим объектом.",
-        mgmt_btn_telegram: "Обсудить управление в Telegram"
+        mgmt_btn_telegram: "Связаться",
+        nav_club: "О Клубе"
     },
     en: {
         floating_wa: "Contact us today — we'll find your perfect apartment",
@@ -64,9 +67,9 @@ const translations = {
         nav_management: "Management",
         nav_contact: "Contact",
         btn_catalog: "View Apartments",
-        btn_wa: "Message in Telegram",
+        btn_wa: "Contact",
         btn_back: "Back",
-        btn_details: "View Details",
+        btn_details: "Details",
         gallery_hint: "Click on photo to enlarge",
         location_city: "Alanya",
         status_available: "Available",
@@ -75,6 +78,7 @@ const translations = {
         perk_best_price: "Best price guarantee",
         perk_fast_confirm: "Fast confirmation",
         booking_hint: "We usually respond within 5 minutes",
+        footer_disclaimer: "Fortuna Private Club is a private information resource and an expert lifestyle platform. The portal is not a tour operator, travel agency, landlord, or service provider. All issues regarding stay, rental, transfer, and additional services are agreed upon directly between guests, property owners, and independent licensed partners.",
         wa_contact_prefix: "Hello! I am interested in: ",
         cta_more_title: "Discover more housing options",
         cta_more_btn: "View all apartments",
@@ -83,7 +87,7 @@ const translations = {
         // Management Page
         mgmt_hero_title: "The Art of Property Management in Alanya",
         mgmt_hero_sub: "From bare walls to a premium rental business. We create interiors that generate income.",
-        mgmt_btn_discuss: "Discuss Management",
+        mgmt_btn_discuss: "Contact",
         mgmt_badge_1: "Revive Your Investments",
         mgmt_title_1: "From Potential to Profit",
         mgmt_text_1: "Often, buying property in Turkey comes with high expectations for rent and yield. However, in practice, many owners find their apartments remain closed, and investment potential unrealized. If your property is currently vacant or not bringing the desired results, it simply lacks a final professional step. We help turn 'just a purchase' into a working asset. While others make promises, we take on the execution: from full furnishing of an empty apartment to professional homestaging. We create a product that stands out in the market and starts generating income from day one.",
@@ -104,7 +108,8 @@ const translations = {
         mgmt_service_desc_6: "Payment control, monthly reports, and full transparency of all financial transactions.",
         mgmt_cta_title: "Ready to turn your property into an asset?",
         mgmt_cta_sub: "Get in touch — we will develop a personalized management strategy for your property.",
-        mgmt_btn_telegram: "Discuss Management on Telegram"
+        mgmt_btn_telegram: "Contact",
+        nav_club: "About Club"
     }
 }
 
@@ -195,6 +200,8 @@ function updateTranslations() {
         if (el.classList.contains('floating-tg')) {
             const textSpan = el.querySelector('.tg-text');
             if (textSpan && translatedText) textSpan.textContent = translatedText;
+        } else if (el.classList.contains('footer-disclaimer')) {
+            if (translatedText) el.textContent = translatedText;
         } else {
             if (translatedText) el.textContent = translatedText;
         }
@@ -245,6 +252,8 @@ function switchLanguage(nextLang, topSwitcher) {
     if (state.currentView === 'home') renderHome();
     else if (state.currentView === 'catalog') renderCatalog();
     else if (state.currentView === 'about') renderAbout();
+    else if (state.currentView === 'management') renderManagement();
+    else if (state.currentView === 'club') renderClub();
     else if (state.currentView === 'apartment') renderApartment(state.activeAptId);
     else if (state.currentView === 'landmark') renderLandmark(state.activeAptId);
 }
@@ -317,8 +326,8 @@ function initParticles() {
 Object.assign(translations.ru, {
     hero_title: "Жизнь у Средиземного моря",
     hero_sub: "Премиальная аренда квартир в Алании",
-    btn_catalog: "Смотреть квартиры",
-    btn_wa: "Написать в Telegram",
+    btn_catalog: "Смотреть апартаменты",
+    btn_wa: "Связаться",
     benefit_1_title: "200 метров до моря",
     benefit_2_title: "Дизайнерские квартиры",
     benefit_3_title: "Лучшие районы Алании",
@@ -331,7 +340,7 @@ Object.assign(translations.ru, {
     btn_video: "Видео",
     desc_title: "Описание",
     amenities_title: "Что включено",
-    btn_book: "Забронировать в Telegram",
+    btn_book: "Связаться",
     reviews_title: "Отзывы",
     contact_title: "Связаться с нами",
     btn_call: "Позвонить",
@@ -342,7 +351,7 @@ Object.assign(translations.en, {
     hero_title: "Life by the Mediterranean Sea",
     hero_sub: "Premium apartment rentals in Alanya",
     btn_catalog: "View Apartments",
-    btn_wa: "Message on Telegram",
+    btn_wa: "Contact",
     benefit_1_title: "200 meters to the sea",
     benefit_2_title: "Designer apartments",
     benefit_3_title: "Best districts of Alanya",
@@ -355,7 +364,7 @@ Object.assign(translations.en, {
     btn_video: "View Video",
     desc_title: "Description",
     amenities_title: "What's included",
-    btn_book: "Book on Telegram",
+    btn_book: "Contact",
     reviews_title: "Reviews",
     contact_title: "Contact Us",
     btn_call: "Call Us",
@@ -366,7 +375,7 @@ Object.assign(translations.en, {
 state.currentView = 'home';
 state.activeAptId = null;
 
-function navigate(view, aptId = null) {
+function navigate(view, id = null) {
     if(window.galleryState) {
         if(window.galleryState.interval) clearInterval(window.galleryState.interval);
         if(window.galleryState.timeout) clearTimeout(window.galleryState.timeout);
@@ -381,9 +390,7 @@ function navigate(view, aptId = null) {
 
     if (view === 'back_from_apartment') {
         const lastAptId = state.activeAptId;
-        
         const targetView = 'catalog';
-        
         state.currentView = targetView;
         state.activeAptId = null;
         
@@ -407,7 +414,7 @@ function navigate(view, aptId = null) {
     }
 
     // Prevent redundant navigation if already on the requested view
-    if (state.currentView === view && (!aptId || state.activeAptId === aptId)) {
+    if (state.currentView === view && (!id || state.activeAptId === id)) {
         if (view !== 'back_from_apartment') {
             window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top if already there
             return;
@@ -415,7 +422,7 @@ function navigate(view, aptId = null) {
     }
 
     state.currentView = view;
-    state.activeAptId = aptId;
+    state.activeAptId = id;
 
     // Update active nav
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -427,19 +434,14 @@ function navigate(view, aptId = null) {
         window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
-    if (view === 'home') {
-        renderHome();
-    } else if (view === 'catalog') {
-        renderCatalog();
-    } else if (view === 'about') {
-        renderAbout();
-    } else if (view === 'management') {
-        renderManagement();
-    } else if (view === 'apartment') {
-        renderApartment(aptId);
-    } else if (view === 'landmark') {
-        renderLandmark(aptId);
-    }
+    if (view === 'home') renderHome();
+    else if (view === 'catalog') renderCatalog();
+    else if (view === 'about') renderAbout();
+    else if (view === 'management') renderManagement();
+    else if (view === 'club') renderClub();
+    else if (view === 'apartment') renderApartment(id);
+    else if (view === 'landmark') renderLandmark(id);
+    else if (view === 'article') renderArticle(id);
 }
 
 function renderHome() {
@@ -512,7 +514,7 @@ function renderHome() {
                             <span data-i18n="btn_catalog">${t('btn_catalog')}</span>
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </button>
-                        <a href="https://t.me/BestrentalAgent" target="_blank" class="btn-secondary">
+                        <a href="https://t.me/fortuna_private_club" target="_blank" class="btn-secondary">
                             <svg class="btn-icon-left" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.88.03-.24.36-.48.99-.73 3.88-1.69 6.46-2.8 7.74-3.35 3.68-1.56 4.44-1.83 4.94-1.84.11 0 .35.03.51.16.14.12.18.28.19.39.01.07.01.21 0 .33z"></path>
                             </svg>
@@ -606,6 +608,21 @@ function renderHome() {
 function observeNewElements() {
     document.querySelectorAll('.reveal, .reveal-up, .transition-fade, .reveal-scale, .reveal-vs, .reveal-left, .reveal-right').forEach(el => {
         if(window.scrollObserver) window.scrollObserver.observe(el);
+    });
+
+    // Mobile: Toggle active class on tap for cards with hidden content
+    document.querySelectorAll('.nature-img-card, .bento-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                const isActive = this.classList.contains('active');
+                if (!isActive) {
+                    // Reveal content first, prevent immediate navigation if desired
+                    // e.preventDefault(); // Uncomment if first click should only reveal
+                    document.querySelectorAll('.nature-img-card.active, .bento-card.active').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            }
+        });
     });
 }
 
@@ -847,7 +864,7 @@ function renderApartment(aptId) {
                             <div class="b-perk"><svg viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" width="16" height="16"><polyline points="20 6 9 17 4 12"></polyline></svg> <span data-i18n="perk_fast_confirm">${t('perk_fast_confirm')}</span></div>
                         </div>
 
-                        <a href="https://t.me/BestrentalAgent" target="_blank" class="btn-super-premium">
+                        <a href="https://t.me/fortuna_private_club" target="_blank" class="btn-super-premium">
                             <span class="btn-glow"></span>
                             <span class="btn-text-content">
                                 <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none" class="tg-icon-svg" style="margin-right: 15px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
@@ -892,7 +909,7 @@ function renderApartment(aptId) {
                 <div class="contact-section reveal-up">
                     <h2 data-i18n="contact_title">${t('contact_title')}</h2>
                     <div class="contact-buttons-row">
-                        <a href="https://t.me/BestrentalAgent" target="_blank" class="contact-btn tg-btn">
+                        <a href="https://t.me/fortuna_private_club" target="_blank" class="contact-btn tg-btn">
                             Telegram
                         </a>
                         <a href="tel:+901234567890" class="contact-btn">
@@ -1019,6 +1036,14 @@ function renderApartment(aptId) {
     }
 
     observeNewElements();
+
+    // Professional: Initialize Media Switcher Slider position on load
+    if (apt.video) {
+        setTimeout(() => {
+            const btns = document.querySelectorAll('.segment-btn');
+            if (btns.length > 0) window.switchMedia('gallery', btns[0]);
+        }, 300); // Wait for transition to settle
+    }
 }
 
 window.switchMedia = function(type, btnObj) {
@@ -1031,14 +1056,19 @@ window.switchMedia = function(type, btnObj) {
     }
     
     if (slider && targetBtn) {
-        slider.style.width = targetBtn.offsetWidth + 'px';
-        slider.style.transform = `translateX(${targetBtn.offsetLeft - 6}px)`;
+        // Use getBoundingClientRect for more precise positioning if offsetLeft is tricky
+        const parentRect = targetBtn.parentElement.getBoundingClientRect();
+        const btnRect = targetBtn.getBoundingClientRect();
+        
+        slider.style.width = btnRect.width + 'px';
+        slider.style.transform = `translateX(${btnRect.left - parentRect.left - 6}px)`;
     }
     
     btns.forEach(b => b.classList.remove('active'));
     if (targetBtn) targetBtn.classList.add('active');
     
-    document.querySelectorAll('.media-container').forEach(c => c.classList.remove('active'));
+    const containers = document.querySelectorAll('.media-container');
+    containers.forEach(c => c.classList.remove('active'));
     
     if(type === 'gallery') {
         const galleryEl = document.getElementById('media-gallery');
@@ -1051,12 +1081,11 @@ window.switchMedia = function(type, btnObj) {
         // Pause all videos when leaving video tab
         const vids = document.querySelectorAll('.cinematic-main-video, .cinematic-bg-video, .custom-vid-el');
         vids.forEach(v => { 
-            if(!v.paused) v.pause(); 
+            if(v.pause && !v.paused) v.pause(); 
         });
         
-        // Professional: Pause YouTube if active
         if (window.ytPlayer && typeof window.ytPlayer.pauseVideo === 'function') {
-            window.ytPlayer.pauseVideo();
+            try { window.ytPlayer.pauseVideo(); } catch(e) {}
         }
 
         const playBtn = document.querySelector('.center-play-btn');
@@ -1065,12 +1094,13 @@ window.switchMedia = function(type, btnObj) {
     } else {
         const videoEl = document.getElementById('media-video');
         if (videoEl) videoEl.classList.add('active');
-        if(window.galleryState) window.galleryState.isVideoActive = true;
+        if(window.galleryState) {
+            window.galleryState.isVideoActive = true;
+            if(window.galleryState.interval) clearInterval(window.galleryState.interval);
+        }
 
-        // Auto-play disabled per user request. User must click play.
         const mainVid = document.querySelector('.cinematic-main-video');
         if (mainVid) {
-            // Ensure UI is visible to allow clicking play
             const playBtn = document.querySelector('.center-play-btn');
             if(playBtn) playBtn.classList.remove('playing');
         }
@@ -1172,8 +1202,8 @@ function renderAbout() {
                 <p class="about-subheadline">${tr('intro', 'subheadline')}</p>
                 <div class="hero-cta-group">
                     <button class="btn-primary" onclick="navigate('catalog'); window.scrollTo(0,0);">${tr('intro', 'btn_explore')}</button>
-                    <button class="btn-alanya-video" onclick="openAlanyaModal()">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right:8px;flex-shrink:0"><path d="M8 5v14l11-7z"/></svg>
+                    <button class="btn-alanya-video" onclick="openAlanyaModal()" style="position:relative; padding-left: 55px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="position:absolute; left:24px; top:50%; transform:translateY(-50%); opacity:0.9;"><path d="M8 5v14l11-7z"/></svg>
                         ${tr('intro', 'btn_discover')}
                     </button>
                 </div>
@@ -1232,6 +1262,10 @@ function renderAbout() {
             <div class="bento-content">
                 <h3>${lm.name[state.lang] || lm.name['en'] || lm.name['ru']}</h3>
                 <p>${lm.desc[state.lang] || lm.desc['en'] || lm.desc['ru']}</p>
+                <div class="bento-link">
+                    <span>${state.lang === 'ru' ? 'Читать статью' : 'Read article'}</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
             </div>
         </div>
     `).join('');
@@ -1477,22 +1511,99 @@ function renderLandmark(landmarkId) {
                                 <span class="unique-label">${uniqueTitle}</span>
                                 <p>${unique}</p>
                             </div>
+
+                            <!-- ARTICLE ACTION -->
+                            <div class="landmark-article-cta">
+                                <button class="article-btn" onclick="navigate('article', '${landmarkId}')">
+                                    <span>${state.lang === 'ru' ? 'Читать статью целиком' : 'Read Full Article'}</span>
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
+                </div>
             </section>
         </div>
     `;
 
     observeNewElements();
     
+    const pageEl = appEl.querySelector('.landmark-detail-page');
+    
     // Smooth Visibility Trigger
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            const pageEl = appEl.querySelector('.landmark-detail-page');
             if (pageEl) pageEl.classList.add('visible');
         });
     });
 }
+
+function renderArticle(landmarkId) {
+    state.currentView = 'article';
+    const appEl = document.getElementById('app-content');
+    
+    // Find article data
+    const article = aboutData.articles[landmarkId];
+    const landmark = aboutData.landmarks.items.find(l => l.id === landmarkId);
+    
+    if (!article || !landmark) {
+        navigate('about');
+        return;
+    }
+
+    const title = article.title[state.lang] || article.title['ru'];
+    const readTime = article.readTime[state.lang] || article.readTime['ru'];
+    const content = article.content[state.lang] || article.content['ru'];
+
+    appEl.innerHTML = `
+        <div class="landmark-article-page transition-fade">
+            <!-- LUXE BACK NAVIGATION -->
+            <button class="article-back-btn" onclick="navigate('landmark', '${landmarkId}')">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                <span>${t('btn_back')}</span>
+            </button>
+
+            <article class="landmark-article-view">
+                <header class="article-header reveal-up">
+                    <div class="article-meta">
+                        <span>${landmark.name[state.lang]}</span>
+                        <span class="meta-dot"></span>
+                        <span>${readTime}</span>
+                    </div>
+                    <h1 class="article-title">${title}</h1>
+                </header>
+
+                <div class="article-hero-container reveal-up">
+                    <img src="${landmark.img}" alt="${title}" class="article-hero-img">
+                </div>
+
+                <div class="article-body reveal-up">
+                    ${content}
+                </div>
+            </article>
+            
+            <section class="article-footer-cta reveal-up">
+                <div class="luxury-line" style="margin: 0 auto 50px; width: 60px; height: 1px; background: #D4AF37;"></div>
+                <p class="cta-subtitle">${state.lang === 'ru' ? 'Прикоснитесь к истории лично' : 'Experience history in person'}</p>
+                <h3 class="cta-title">${state.lang === 'ru' ? 'Забронируйте премиальный отдых' : 'Book Your Premium Stay'}</h3>
+                <button class="luxe-btn-v2" onclick="navigate('catalog')" style="margin-top: 40px;">
+                    <span>${t('btn_catalog')}</span>
+                </button>
+            </section>
+        </div>
+    `;
+
+    observeNewElements();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        const pageEl = appEl.querySelector('.landmark-article-page');
+        if (pageEl) pageEl.classList.add('visible');
+    }));
+}
+
 
 function renderManagement() {
     const appEl = document.getElementById('app-content');
@@ -1507,7 +1618,7 @@ function renderManagement() {
           <div class="luxury-line" style="margin:0 auto 28px;"></div>
           <h1 class="mgmt-hero-title" data-i18n="mgmt_hero_title">${t('mgmt_hero_title')}</h1>
           <p class="mgmt-hero-sub" data-i18n="mgmt_hero_sub">${t('mgmt_hero_sub')}</p>
-          <a href="https://t.me/BestrentalAgent" target="_blank" class="mgmt-cta-btn hero-cta">
+          <a href="https://t.me/fortuna_private_club" target="_blank" class="mgmt-cta-btn hero-cta">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.88.03-.24.36-.48.99-.73 3.88-1.69 6.46-2.8 7.74-3.35 3.68-1.56 4.44-1.83 4.94-1.84.11 0 .35.03.51.16.14.12.18.28.19.39.01.07.01.21 0 .33z"/></svg>
             <span data-i18n="mgmt_btn_discuss">${t('mgmt_btn_discuss')}</span>
           </a>
@@ -1515,27 +1626,27 @@ function renderManagement() {
       </section>
 
       <!-- SECTION 1: Оживите инвестиции -->
-      <section class="mgmt-section reveal-up">
+      <section class="mgmt-section">
         <div class="mgmt-container">
-          <div class="mgmt-badge" data-i18n="mgmt_badge_1">${t('mgmt_badge_1')}</div>
-          <h2 class="mgmt-section-title" data-i18n="mgmt_title_1">${t('mgmt_title_1')}</h2>
-          <p class="mgmt-section-text" data-i18n="mgmt_text_1">${t('mgmt_text_1')}</p>
+          <div class="mgmt-badge reveal-up" data-i18n="mgmt_badge_1">${t('mgmt_badge_1')}</div>
+          <h2 class="mgmt-section-title reveal-up" data-i18n="mgmt_title_1">${t('mgmt_title_1')}</h2>
+          <p class="mgmt-section-text reveal-up" data-i18n="mgmt_text_1">${t('mgmt_text_1')}</p>
           <div class="mgmt-services-grid">
-            <div class="mgmt-service-card">
+            <div class="mgmt-service-card reveal-up" style="transition-delay: 0.1s">
               <div class="mgmt-service-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
               </div>
               <h3 data-i18n="mgmt_service_title_1">${t('mgmt_service_title_1')}</h3>
               <p data-i18n="mgmt_service_desc_1">${t('mgmt_service_desc_1')}</p>
             </div>
-            <div class="mgmt-service-card">
+            <div class="mgmt-service-card reveal-up" style="transition-delay: 0.2s">
               <div class="mgmt-service-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
               </div>
               <h3 data-i18n="mgmt_service_title_2">${t('mgmt_service_title_2')}</h3>
               <p data-i18n="mgmt_service_desc_2">${t('mgmt_service_desc_2')}</p>
             </div>
-            <div class="mgmt-service-card">
+            <div class="mgmt-service-card reveal-up" style="transition-delay: 0.3s">
               <div class="mgmt-service-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
               </div>
@@ -1547,27 +1658,27 @@ function renderManagement() {
       </section>
 
       <!-- SECTION 2: Доверительное управление -->
-      <section class="mgmt-section mgmt-section-alt reveal-up">
+      <section class="mgmt-section mgmt-section-alt">
         <div class="mgmt-container">
-          <div class="mgmt-badge" data-i18n="mgmt_badge_2">${t('mgmt_badge_2')}</div>
-          <h2 class="mgmt-section-title" data-i18n="mgmt_title_2">${t('mgmt_title_2')}</h2>
-          <p class="mgmt-section-text" data-i18n="mgmt_text_2">${t('mgmt_text_2')}</p>
+          <div class="mgmt-badge reveal-up" data-i18n="mgmt_badge_2">${t('mgmt_badge_2')}</div>
+          <h2 class="mgmt-section-title reveal-up" data-i18n="mgmt_title_2">${t('mgmt_title_2')}</h2>
+          <p class="mgmt-section-text reveal-up" data-i18n="mgmt_text_2">${t('mgmt_text_2')}</p>
           <div class="mgmt-services-grid">
-            <div class="mgmt-service-card">
+            <div class="mgmt-service-card reveal-up" style="transition-delay: 0.1s">
               <div class="mgmt-service-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
               </div>
               <h3 data-i18n="mgmt_service_title_4">${t('mgmt_service_title_4')}</h3>
               <p data-i18n="mgmt_service_desc_4">${t('mgmt_service_desc_4')}</p>
             </div>
-            <div class="mgmt-service-card">
+            <div class="mgmt-service-card reveal-up" style="transition-delay: 0.2s">
               <div class="mgmt-service-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
               </div>
               <h3 data-i18n="mgmt_service_title_5">${t('mgmt_service_title_5')}</h3>
               <p data-i18n="mgmt_service_desc_5">${t('mgmt_service_desc_5')}</p>
             </div>
-            <div class="mgmt-service-card">
+            <div class="mgmt-service-card reveal-up" style="transition-delay: 0.3s">
               <div class="mgmt-service-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
               </div>
@@ -1584,7 +1695,7 @@ function renderManagement() {
           <div class="mgmt-cta-glass">
             <h2 class="mgmt-cta-title" data-i18n="mgmt_cta_title">${t('mgmt_cta_title')}</h2>
             <p class="mgmt-cta-sub" data-i18n="mgmt_cta_sub">${t('mgmt_cta_sub')}</p>
-            <a href="https://t.me/BestrentalAgent" target="_blank" class="mgmt-cta-btn">
+            <a href="https://t.me/fortuna_private_club" target="_blank" class="mgmt-cta-btn">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.88.03-.24.36-.48.99-.73 3.88-1.69 6.46-2.8 7.74-3.35 3.68-1.56 4.44-1.83 4.94-1.84.11 0 .35.03.51.16.14.12.18.28.19.39.01.07.01.21 0 .33z"/></svg>
               <span data-i18n="mgmt_btn_telegram">${t('mgmt_btn_telegram')}</span>
             </a>
@@ -1937,7 +2048,6 @@ function initNatureCarousel() {
             if (Math.abs(posX) >= jumpPoint) {
                 posX += jumpPoint;
             }
-            
             track.style.transform = `translate3d(${posX}px, 0, 0)`;
         }
         rafId = requestAnimationFrame(updateLoop);
@@ -1985,15 +2095,9 @@ function initNatureCarousel() {
     viewport.addEventListener('click', (e) => {
         const card = e.target.closest('.nature-img-card');
         if (card) {
-            // If dragging, don't toggle
             if (Math.abs(startX - (e.pageX || (e.touches && e.touches[0].pageX))) > 5) return;
-            
-            // Toggle active class
             const isActive = card.classList.contains('active');
-            
-            // Close others
             track.querySelectorAll('.nature-img-card.active').forEach(c => c.classList.remove('active'));
-            
             if (!isActive) {
                 card.classList.add('active');
             }
@@ -2013,6 +2117,25 @@ function initNatureCarousel() {
 
     // Start loop
     rafId = requestAnimationFrame(updateLoop);
+}
+
+function observeNewElements() {
+    document.querySelectorAll('.reveal, .reveal-up, .transition-fade, .reveal-scale, .reveal-vs, .reveal-left, .reveal-right, .reveal-plata').forEach(el => {
+        if(window.scrollObserver) window.scrollObserver.observe(el);
+    });
+
+    // Mobile: Toggle active class on tap for cards with hidden content
+    document.querySelectorAll('.nature-img-card, .bento-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                const isActive = this.classList.contains('active');
+                if (!isActive) {
+                    document.querySelectorAll('.nature-img-card.active, .bento-card.active').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            }
+        });
+    });
 }
 
 // Mobile Hamburger Menu Logic
@@ -2100,3 +2223,688 @@ window.closeAlanyaModal = function(event, force = false) {
         window._currentEscHandler = null;
     }
 };
+
+function renderClub() {
+    state.currentView = 'club';
+    const appEl = document.getElementById('app-content');
+    if (!appEl) return;
+    
+    const data = clubData[state.lang] || clubData.ru;
+    
+    // Advanced word-by-word reveal for premium feel
+    const wrapWords = (text, delayOffset = 0) => {
+        if (!text) return '';
+        return text.split(' ').map((word, i) => `
+            <span class="word-wrap">
+                <span class="word-inner" style="transition-delay: ${delayOffset + (i * 0.03)}s">${word}&nbsp;</span>
+            </span>
+        `).join('');
+    };
+
+    // Progressive content reveal for mobile (no giant text walls)
+    const renderText = (text, limit = 200) => {
+        if (!text) return '';
+        // Threshold to show the expand button
+        const isLong = text.length > limit;
+        if (!isLong) return `<p class="luxe-paragraph">${text}</p>`;
+        
+        return `
+            <div class="expandable-text-container luxe-expand-wrapper">
+                <p class="luxe-paragraph expandable-content">${text}</p>
+                <button class="read-more-btn luxe-expand-trigger" onclick="toggleLuxeText(this)">
+                    <span class="btn-text">${state.lang === 'ru' ? 'Читать далее' : 'Read More'}</span>
+                    <span class="btn-icon">↓</span>
+                </button>
+            </div>
+        `;
+    };
+
+    const renderSection = (section, index) => {
+        const { type, label, title, text, image, items, services, id } = section;
+        const revealClass = "reveal-plata";
+        
+        switch (type) {
+            case 'editorial':
+            case 'editorial-reverse':
+                return `
+                    <section id="${id}" class="luxe-section editorial-layout ${type === 'editorial-reverse' ? 'reverse' : ''} ${revealClass}">
+                        <div class="container">
+                            <div class="editorial-grid">
+                                <div class="editorial-media">
+                                    <div class="media-frame">
+                                        <img src="${image || 'assets/images/placeholder.png'}" alt="${title}" loading="lazy">
+                                        <div class="media-overlay"></div>
+                                    </div>
+                                </div>
+                                <div class="editorial-content">
+                                    <span class="section-label">${label}</span>
+                                    <h2 class="luxe-section-title">${wrapWords(title)}</h2>
+                                    ${renderText(text)}
+                                    <div class="section-divider"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            
+            case 'reveal-cards':
+                return `
+                    <section id="${id}" class="luxe-section cards-layout ${revealClass}">
+                        <div class="container">
+                            <div class="section-header center">
+                                <span class="section-label">${label}</span>
+                                <h2 class="luxe-section-title center">${wrapWords(title)}</h2>
+                            </div>
+                            <div class="luxe-cards-grid">
+                                ${items.map((item, i) => `
+                                    <div class="luxe-mini-card" style="transition-delay: ${i * 0.1}s">
+                                        <span class="card-step">0${i + 1}</span>
+                                        <h3>${item.title}</h3>
+                                        <p>${item.text}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="section-text-block center">
+                                ${renderText(text, 500)}
+                            </div>
+                        </div>
+                    </section>
+                `;
+
+            case 'cinematic-text':
+                return `
+                    <section id="${id}" class="luxe-section cinematic-text-layout ${revealClass}">
+                        <div class="parallax-bg-wrapper">
+                            <img src="${image}" alt="Background" class="parallax-img">
+                            <div class="cinematic-overlay-dark"></div>
+                        </div>
+                        <div class="container">
+                            <div class="cinematic-content">
+                                <span class="section-label gold">${label}</span>
+                                <h2 class="luxe-title-large">${wrapWords(title)}</h2>
+                                <div class="cinematic-text-wrap">
+                                    ${renderText(text, 250)}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+
+            case 'accordion-list':
+                return `
+                    <section id="${id}" class="luxe-section accordion-layout ${revealClass}">
+                        <div class="container">
+                            <div class="accordion-container">
+                                <div class="accordion-info">
+                                    <span class="section-label">${label}</span>
+                                    <h2 class="luxe-section-title">${wrapWords(title)}</h2>
+                                    ${renderText(text)}
+                                </div>
+                                <div class="luxe-accordion">
+                                    ${items.slice(0, 5).map((item, i) => `
+                                        <div class="accordion-item" onclick="toggleLuxeAccordion(this)">
+                                            <div class="accordion-header">
+                                                <span class="item-index">${(i + 1).toString().padStart(2, '0')}</span>
+                                                <h3>${item.title}</h3>
+                                                <span class="accordion-plus">+</span>
+                                            </div>
+                                            <div class="accordion-body">
+                                                <div class="body-content">
+                                                    ${item.text}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                    
+                                    ${items.length > 5 ? `
+                                        <div class="accordion-hidden-items">
+                                            ${items.slice(5).map((item, i) => `
+                                                <div class="accordion-item" onclick="toggleLuxeAccordion(this)">
+                                                    <div class="accordion-header">
+                                                        <span class="item-index">${(i + 6).toString().padStart(2, '0')}</span>
+                                                        <h3>${item.title}</h3>
+                                                        <span class="accordion-plus">+</span>
+                                                    </div>
+                                                    <div class="accordion-body">
+                                                        <div class="body-content">
+                                                            ${item.text}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                        <button class="read-more-btn accordion-expand-trigger" onclick="expandAccordionList(this)" style="margin-top: 30px;">
+                                            <span class="btn-text">${state.lang === 'ru' ? 'Показать все направления' : 'Show All Services'}</span>
+                                            <span class="btn-icon">↓</span>
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+
+            case 'grid-services':
+                return `
+                    <section id="${id}" class="luxe-section services-grid-layout ${revealClass}">
+                        <div class="container">
+                            <div class="section-header">
+                                <span class="section-label">${label}</span>
+                                <h2 class="luxe-section-title">${wrapWords(title)}</h2>
+                            </div>
+                            <div class="services-luxe-grid">
+                                ${services.map((s, i) => `
+                                <div class="service-luxe-item" style="transition-delay: ${i * 0.1}s">
+                                    <div class="service-header-luxe">
+                                        <div class="service-icon-wrap">${s.icon}</div>
+                                        <h4>${s.title}</h4>
+                                    </div>
+                                    <div class="service-info">
+                                        <p>${s.text}</p>
+                                    </div>
+                                </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </section>
+                `;
+
+            case 'gallery-card': {
+                const imgs = section.imageUrls || [];
+                const ytId = section.youtubeVideoUrl ? getYouTubeId(section.youtubeVideoUrl) : null;
+                const hasMedia = imgs.length > 0 || ytId;
+                const sectionId = id;
+
+                // Build carousel slides (lazy-loaded, with aspect-ratio placeholder to prevent layout shift)
+                const slidesHtml = imgs.map((url, i) => `
+                    <div class="gc-slide ${i === 0 ? 'gc-slide--active' : ''}" aria-hidden="${i !== 0}">
+                        <div class="gc-img-wrap">
+                            <div class="gc-img-skeleton"></div>
+                            <img
+                                src="${url}"
+                                alt="${section.title} — фото ${i + 1}"
+                                loading="${i === 0 ? 'eager' : 'lazy'}"
+                                decoding="async"
+                                class="gc-img"
+                                onload="this.classList.add('gc-img--loaded'); this.previousElementSibling.style.opacity='0';"
+                                onerror="this.closest('.gc-img-wrap').classList.add('gc-img-wrap--error'); this.previousElementSibling.style.opacity='0';"
+                            >
+                        </div>
+                    </div>
+                `).join('');
+
+                // Build dot indicators
+                const dotsHtml = imgs.length > 1 ? `
+                    <div class="gc-dots" role="tablist" aria-label="Gallery navigation">
+                        ${imgs.map((_, i) => `
+                            <button class="gc-dot ${i === 0 ? 'gc-dot--active' : ''}"
+                                role="tab"
+                                aria-selected="${i === 0}"
+                                aria-label="Photo ${i + 1}"
+                                onclick="window.gcGoTo('${sectionId}', ${i})">
+                            </button>
+                        `).join('')}
+                    </div>
+                ` : '';
+
+                // Empty-state placeholder when no images are configured yet
+                const emptyStateHtml = `
+                    <div class="gc-empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="48" height="48">
+                            <rect x="3" y="3" width="18" height="18" rx="3"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                        <p>${state.lang === 'ru' ? 'Фотографии будут добавлены' : 'Photos coming soon'}</p>
+                    </div>
+                `;
+
+                // YouTube embed section
+                const ytHtml = ytId ? `
+                    <div class="gc-yt-wrap">
+                        <div class="gc-yt-label">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                                <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/>
+                            </svg>
+                            <span>${state.lang === 'ru' ? 'Видео об объектах' : 'Property video'}</span>
+                        </div>
+                        <div class="gc-yt-frame-wrap">
+                            <iframe
+                                class="gc-yt-iframe"
+                                src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1&playsinline=1"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy"
+                                title="${section.title}"
+                            ></iframe>
+                        </div>
+                    </div>
+                ` : '';
+
+                return `
+                    <section id="${sectionId}" class="luxe-section gc-section ${revealClass}">
+                        <div class="container">
+                            <div class="gc-wrapper">
+
+                                <!-- LEFT: Text column -->
+                                <div class="gc-text-col">
+                                    <span class="section-label">${label}</span>
+                                    <h2 class="luxe-section-title">${wrapWords(title)}</h2>
+                                    <p class="gc-subtitle-line">${section.subtitle || ''}</p>
+                                    <p class="gc-description">${section.description || ''}</p>
+                                    <div class="section-divider"></div>
+                                    ${section.callToActionLink ? `
+                                        <a href="${section.callToActionLink}" target="_blank" rel="noopener noreferrer" class="gc-cta-btn">
+                                            <span>${section.callToActionText || (state.lang === 'ru' ? 'Запросить приглашение' : 'Request Invitation')}</span>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                                <polyline points="12 5 19 12 12 19"/>
+                                            </svg>
+                                        </a>
+                                    ` : ''}
+                                </div>
+
+                                <!-- RIGHT: Media column -->
+                                <div class="gc-media-col">
+
+                                    <!-- Image Gallery Carousel -->
+                                    ${imgs.length > 0 ? `
+                                        <div class="gc-carousel" id="gc-carousel-${sectionId}" aria-roledescription="carousel" aria-label="${section.title}">
+                                            <div class="gc-track" id="gc-track-${sectionId}">
+                                                ${slidesHtml}
+                                            </div>
+
+                                            ${imgs.length > 1 ? `
+                                                <button class="gc-arrow gc-arrow--prev" aria-label="Previous photo"
+                                                    onclick="window.gcMove('${sectionId}', -1)">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                                                        <polyline points="15 18 9 12 15 6"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="gc-arrow gc-arrow--next" aria-label="Next photo"
+                                                    onclick="window.gcMove('${sectionId}', 1)">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                                                        <polyline points="9 18 15 12 9 6"/>
+                                                    </svg>
+                                                </button>
+
+                                                <div class="gc-counter" aria-live="polite">
+                                                    <span id="gc-current-${sectionId}">1</span>
+                                                    <span class="gc-counter-sep">/</span>
+                                                    <span>${imgs.length}</span>
+                                                </div>
+
+                                                ${dotsHtml}
+                                            ` : ''}
+                                        </div>
+                                    ` : emptyStateHtml}
+
+                                    <!-- YouTube Embed (shown below carousel if configured) -->
+                                    ${ytHtml}
+
+                                </div><!-- /gc-media-col -->
+
+                            </div><!-- /gc-wrapper -->
+                        </div><!-- /container -->
+                    </section>
+                `;
+            }
+
+            case 'cinematic-footer':
+                return `
+                    <section id="${id}" class="luxe-section final-cta-layout ${revealClass}">
+                        <div class="container">
+                            <div class="final-cta-container">
+                                <div class="cta-line"></div>
+                                <span class="section-label gold">${label}</span>
+                                <h2 class="luxe-title-xl">${wrapWords(title)}</h2>
+                                <p class="cta-subtitle">${section.subtitle}</p>
+                                <a href="https://t.me/fortuna_private_club" target="_blank" class="btn-luxe-cinematic">
+                                    <span>${section.btn}</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            
+            default:
+                return '';
+        }
+    };
+
+    const html = `
+        <div class="club-page cinematic-theme transition-fade">
+            <!-- LUXE HERO -->
+            <section class="cinematic-hero">
+                <div class="hero-visual">
+                    <img src="assets/images/club_hero_luxe.png" alt="Fortuna Private Club">
+                    <div class="hero-mask"></div>
+                </div>
+                <div class="hero-content-luxe">
+                    <div class="scroll-progress-indicator">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <h1 class="hero-title-main">${wrapWords(data.hero.title)}</h1>
+                    <div class="hero-sub-reveal reveal-up" style="transition-delay: 0.8s">
+                        <span class="gold-line"></span>
+                        <p>${data.hero.subtitle}</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULAR SECTIONS -->
+            <div class="club-sections-container">
+                ${data.sections.map((section, index) => renderSection(section, index)).join('')}
+            </div>
+
+            <!-- FLOATING PROGRESS REMOVED -->
+        </div>
+    `;
+
+    appEl.innerHTML = html;
+    
+    // Re-initialize scroll observer for new elements
+    if (window.scrollObserver) {
+        appEl.querySelectorAll('.reveal-plata, .reveal-up').forEach(el => window.scrollObserver.observe(el));
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // GALLERY-CARD CAROUSEL ENGINE
+    // Supports multiple carousel instances on the same page, each by section ID
+    // ─────────────────────────────────────────────────────────────────────────
+    const gcStateMap = {};  // { [sectionId]: { index, total, autoTimer } }
+
+    function gcInit(sectionId) {
+        const track = document.getElementById(`gc-track-${sectionId}`);
+        if (!track) return;
+        const slides = track.querySelectorAll('.gc-slide');
+        if (!slides.length) return;
+
+        gcStateMap[sectionId] = { index: 0, total: slides.length, autoTimer: null };
+        gcStartAuto(sectionId);
+
+        // Touch swipe support
+        const carousel = document.getElementById(`gc-carousel-${sectionId}`);
+        if (!carousel) return;
+
+        let touchStartX = 0;
+        carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        carousel.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) window.gcMove(sectionId, diff > 0 ? 1 : -1);
+        }, { passive: true });
+
+        // Pause auto on hover / focus
+        carousel.addEventListener('mouseenter', () => gcStopAuto(sectionId));
+        carousel.addEventListener('mouseleave', () => gcStartAuto(sectionId));
+        carousel.addEventListener('focusin', () => gcStopAuto(sectionId));
+        carousel.addEventListener('focusout', () => gcStartAuto(sectionId));
+    }
+
+    function gcRender(sectionId) {
+        const st = gcStateMap[sectionId];
+        if (!st) return;
+        const track = document.getElementById(`gc-track-${sectionId}`);
+        if (!track) return;
+
+        const slides = track.querySelectorAll('.gc-slide');
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('gc-slide--active', i === st.index);
+            slide.setAttribute('aria-hidden', i !== st.index);
+        });
+
+        // Update dot indicators
+        const dots = document.querySelectorAll(`#gc-carousel-${sectionId} .gc-dot`);
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('gc-dot--active', i === st.index);
+            dot.setAttribute('aria-selected', i === st.index);
+        });
+
+        // Update counter
+        const counter = document.getElementById(`gc-current-${sectionId}`);
+        if (counter) counter.textContent = st.index + 1;
+    }
+
+    window.gcMove = function(sectionId, dir) {
+        const st = gcStateMap[sectionId];
+        if (!st) return;
+        gcStopAuto(sectionId);
+        st.index = (st.index + dir + st.total) % st.total;
+        gcRender(sectionId);
+        gcStartAuto(sectionId);
+    };
+
+    window.gcGoTo = function(sectionId, idx) {
+        const st = gcStateMap[sectionId];
+        if (!st) return;
+        gcStopAuto(sectionId);
+        st.index = idx;
+        gcRender(sectionId);
+        gcStartAuto(sectionId);
+    };
+
+    function gcStartAuto(sectionId) {
+        const st = gcStateMap[sectionId];
+        if (!st || st.total <= 1) return;
+        gcStopAuto(sectionId);
+        st.autoTimer = setInterval(() => {
+            if (state.currentView !== 'club') { gcStopAuto(sectionId); return; }
+            st.index = (st.index + 1) % st.total;
+            gcRender(sectionId);
+        }, 5000);
+    }
+
+    function gcStopAuto(sectionId) {
+        const st = gcStateMap[sectionId];
+        if (st && st.autoTimer) { clearInterval(st.autoTimer); st.autoTimer = null; }
+    }
+
+    // Initialize all gallery-card carousels present on this page
+    data.sections.forEach(sec => {
+        if (sec.type === 'gallery-card' && sec.imageUrls && sec.imageUrls.length > 1) {
+            gcInit(sec.id);
+        }
+    });
+
+
+    window.toggleLuxeText = (btn) => {
+        const container = btn.closest('.luxe-expand-wrapper');
+        const content = container.querySelector('.expandable-content');
+        const isExpanded = container.classList.contains('expanded');
+        
+        // Asymmetric timing configuration
+        const openDuration = 0.6; 
+        const closeDuration = 1.2; // Twice as slow, ultra-premium
+        const easing = 'cubic-bezier(0.22, 1, 0.36, 1)'; // Extra-smooth cubic
+        
+        if (isExpanded) {
+            // --- CLOSE ---
+            // 1. Lock current height in px to ensure transition starts from real value
+            const currentHeight = content.offsetHeight;
+            content.style.maxHeight = currentHeight + 'px';
+            
+            // 2. Force reflow
+            content.offsetHeight;
+            
+            // 3. Apply slow transition and target height
+            content.style.transition = `max-height ${closeDuration}s ${easing}, opacity ${closeDuration}s ${easing}`;
+            content.style.maxHeight = '5.4em'; // Collapsed state
+            
+            btn.classList.remove('active');
+            
+            // Toggle Button Text/Icon
+            const btnText = btn.querySelector('.btn-text');
+            const btnIcon = btn.querySelector('.btn-icon');
+            if (btnText) btnText.textContent = state.lang === 'ru' ? 'Читать далее' : 'Read More';
+            if (btnIcon) btnIcon.textContent = '↓';
+            
+            // 4. Delay class removal until transition ends (to keep line-clamp unset & fade smooth)
+            if (content._closeTimeout) clearTimeout(content._closeTimeout);
+            content._closeTimeout = setTimeout(() => {
+                if (!btn.classList.contains('active')) {
+                    container.classList.remove('expanded');
+                    content.style.transition = ''; // Clean up
+                }
+            }, closeDuration * 1000);
+            
+        } else {
+            // --- OPEN ---
+            // 1. Prepare for expansion
+            container.classList.add('expanded'); // Add first to calculate real scrollHeight (line-clamp: unset)
+            const fullHeight = content.scrollHeight;
+            
+            // 2. Reset to collapsed start point for transition
+            content.style.transition = 'none';
+            content.style.maxHeight = '5.4em';
+            
+            // 3. Force reflow
+            content.offsetHeight;
+            
+            // 4. Apply transition and target full height
+            content.style.transition = `max-height ${openDuration}s ${easing}, opacity ${openDuration}s ${easing}`;
+            content.style.maxHeight = fullHeight + 'px';
+            btn.classList.add('active');
+
+            // Toggle Button Text/Icon
+            const btnText = btn.querySelector('.btn-text');
+            const btnIcon = btn.querySelector('.btn-icon');
+            if (btnText) btnText.textContent = state.lang === 'ru' ? 'Свернуть' : 'Read Less';
+            if (btnIcon) btnIcon.textContent = '↑';
+            
+            if (content._closeTimeout) clearTimeout(content._closeTimeout);
+        }
+    };
+
+    window.toggleLuxeAccordion = (item) => {
+        const isActive = item.classList.contains('active');
+        const parent = item.parentElement;
+        const body = item.querySelector('.accordion-body');
+        
+        // Asymmetric timing
+        const openDuration = 0.7;
+        const closeDuration = 1.4; // Twice as slow
+        const easing = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+        // Close others with premium slow timing
+        parent.querySelectorAll('.accordion-item').forEach(el => {
+            if (el !== item && el.classList.contains('active')) {
+                const otherBody = el.querySelector('.accordion-body');
+                otherBody.style.transition = `max-height ${closeDuration}s ${easing}`;
+                otherBody.style.maxHeight = '0';
+                
+                // Delay class removal for visual continuity
+                setTimeout(() => {
+                    if (!otherBody.style.maxHeight || otherBody.style.maxHeight === '0px') {
+                        el.classList.remove('active');
+                    }
+                }, closeDuration * 1000);
+            }
+        });
+        
+        if (!isActive) {
+            // OPEN
+            const fullHeight = body.scrollHeight;
+            body.style.transition = `max-height ${openDuration}s ${easing}`;
+            body.style.maxHeight = fullHeight + 'px';
+            item.classList.add('active');
+        } else {
+            // CLOSE
+            body.style.transition = `max-height ${closeDuration}s ${easing}`;
+            body.style.maxHeight = '0';
+            
+            // Delay class removal
+            setTimeout(() => {
+                if (body.style.maxHeight === '0px' || body.style.maxHeight === '0') {
+                    item.classList.remove('active');
+                }
+            }, closeDuration * 1000);
+        }
+    };
+
+    window.expandAccordionList = (btn) => {
+        const container = btn.previousElementSibling;
+        if (!container) return;
+        
+        const btnText = btn.querySelector('.btn-text');
+        const btnIcon = btn.querySelector('.btn-icon');
+        const isExpanded = btn.classList.contains('active-expanded');
+
+        if (!isExpanded) {
+            // EXPAND
+            container.classList.add('active');
+            
+            // Progressive cinematic reveal of items inside
+            const items = container.querySelectorAll('.accordion-item');
+            items.forEach((item, i) => {
+                // Pre-set state for clean animation
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'none'; 
+                
+                setTimeout(() => {
+                    item.style.transition = 'opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 200 + (i * 80)); // More pronounced staggering
+            });
+            
+            btn.classList.add('active-expanded');
+            if (btnText) btnText.textContent = state.lang === 'ru' ? 'Скрыть направления' : 'Hide Services';
+            if (btnIcon) btnIcon.textContent = '↑';
+        } else {
+            // COLLAPSE
+            container.classList.remove('active');
+            
+            // Scroll back slightly for orientation
+            setTimeout(() => {
+                btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+            
+            btn.classList.remove('active-expanded');
+            if (btnText) btnText.textContent = state.lang === 'ru' ? 'Показать все направления' : 'Show All Services';
+            if (btnIcon) btnIcon.textContent = '↓';
+        }
+    };
+
+    // Scroll progress & Navigation highlighting
+    window.addEventListener('scroll', handleClubScroll, { passive: true });
+    
+    function handleClubScroll() {
+        if (state.currentView !== 'club') {
+            window.removeEventListener('scroll', handleClubScroll);
+            return;
+        }
+
+        const sections = document.querySelectorAll('.luxe-section');
+        const dots = document.querySelectorAll('.club-nav-dot');
+        const progressBar = document.querySelector('.progress-bar');
+        
+        let currentSectionId = '';
+        const scrollPos = window.scrollY + window.innerHeight / 3;
+
+        sections.forEach(sec => {
+            if (scrollPos >= sec.offsetTop) {
+                currentSectionId = sec.id;
+            }
+        });
+
+        dots.forEach(dot => {
+            const href = dot.getAttribute('href').substring(1);
+            dot.classList.toggle('active', href === currentSectionId);
+        });
+
+        // Overall progress
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (window.scrollY / totalHeight) * 100;
+        if (progressBar) progressBar.style.height = `${progress}%`;
+    }
+
+    // Trigger initial reveal
+    requestAnimationFrame(() => {
+        const pageEl = appEl.querySelector('.club-page');
+        if (pageEl) pageEl.classList.add('visible');
+    });
+}
+
