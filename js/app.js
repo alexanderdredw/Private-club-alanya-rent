@@ -1379,20 +1379,56 @@ function renderAbout() {
         </section>
     `;
 
-    // 3. Lifestyle Story
-    const lifestyleHtml = aboutData.lifestyle.blocks.map((block, i) => `
-        <div class="story-block">
-            <div class="story-bg" style="background-image: url('${block.img}'); background-position: ${block.position || 'center'};"></div>
-            <div class="story-overlay"></div>
-            <div class="story-content reveal-up" style="transition-delay: 0.2s;">
-                <span class="story-phase">${block.phase[state.lang] || block.phase['en'] || block.phase['ru']}</span>
-                <p class="story-text">${block.text[state.lang] || block.text['en'] || block.text['ru']}</p>
+    // 3. Lifestyle Carousel (React Bits style)
+    const _lsIcons = [
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`,
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2-4 6-4 8 0s6 4 8 0"/><path d="M2 17c2-4 6-4 8 0s6 4 8 0"/></svg>`,
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="4"/><path d="M12 2v2M4.93 4.93l1.41 1.41M2 10h2M4.93 15.07l1.41-1.41M12 14v2M19.07 15.07l-1.41-1.41M22 10h-2M19.07 4.93l-1.41 1.41"/><line x1="2" y1="20" x2="22" y2="20"/></svg>`,
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`
+    ];
+    const _lsSlidesHtml = aboutData.lifestyle.blocks.map((block, i) => {
+        const phaseLocal = block.phase[state.lang] || block.phase['en'] || block.phase['ru'];
+        const phaseLabel = (block.phase['ru'] || '').toUpperCase() + ' · ' + (block.phase['en'] || '').toUpperCase();
+        const slideText = block.text[state.lang] || block.text['en'] || block.text['ru'];
+        return `
+        <div class="lsc-item" data-index="${i}">
+            <div class="lsc-item-bg" style="background-image: url('${block.img}'); background-position: ${block.position || 'center'};"></div>
+            <div class="lsc-item-overlay"></div>
+            <div class="lsc-item-inner">
+                <div class="lsc-item-header">
+                    <div class="lsc-icon-wrap">${_lsIcons[i] || ''}</div>
+                    <span class="lsc-phase-label">${phaseLabel}</span>
+                </div>
+                <div class="lsc-item-body">
+                    <h3 class="lsc-item-title">${phaseLocal}</h3>
+                    <p class="lsc-item-text">${slideText}</p>
+                </div>
             </div>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
+    const _lsDotsHtml = aboutData.lifestyle.blocks.map((_, i) =>
+        `<button class="lsc-indicator ${i === 0 ? 'active' : 'inactive'}" data-slide="${i}" aria-label="Slide ${i + 1}"></button>`
+    ).join('');
     const lifestyleSectionHtml = `
-        <section class="lifestyle-scroll-container">
-            ${lifestyleHtml}
+        <section class="lsc-section">
+            <div class="lsc-section-header reveal-up">
+                <span class="lsc-eyebrow">${state.lang === 'ru' ? 'АЛАНИЯ · 24 ЧАСА' : 'ALANYA · 24 HOURS'}</span>
+                <h2 class="lsc-title">${aboutData.lifestyle.title[state.lang] || aboutData.lifestyle.title['ru']}</h2>
+            </div>
+            <div class="lsc-outer">
+                <div class="lsc-container" id="lsc-container">
+                    <div class="lsc-track" id="lsc-track">${_lsSlidesHtml}</div>
+                    <button class="lsc-arrow lsc-arrow-prev" id="lsc-prev" aria-label="Previous">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+                    <button class="lsc-arrow lsc-arrow-next" id="lsc-next" aria-label="Next">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+                <div class="lsc-indicators-container">
+                    <div class="lsc-indicators" id="lsc-indicators">${_lsDotsHtml}</div>
+                </div>
+            </div>
         </section>
     `;
 
@@ -1543,10 +1579,9 @@ function renderAbout() {
     observeNewElements();
 
     setTimeout(() => {
-        if (typeof initNatureCarousel === 'function') {
-            initNatureCarousel();
-        }
-    }, 100);
+        if (typeof initNatureCarousel === 'function') initNatureCarousel();
+        if (typeof initLifestyleCarousel === 'function') initLifestyleCarousel();
+    }, 150);
 
     // Visibility Trigger
     requestAnimationFrame(() => {
@@ -1599,6 +1634,171 @@ function renderAbout() {
         // Initial Parallax Call
         updateParallax();
     });
+}
+
+// Lifestyle Carousel — React Bits style (drag, velocity snap, autoplay, dots, arrows)
+function initLifestyleCarousel() {
+    const container = document.getElementById('lsc-container');
+    const track = document.getElementById('lsc-track');
+    if (!container || !track) return;
+
+    const items = Array.from(track.querySelectorAll('.lsc-item'));
+    const dots = Array.from(document.querySelectorAll('#lsc-indicators .lsc-indicator'));
+    const prevBtn = document.getElementById('lsc-prev');
+    const nextBtn = document.getElementById('lsc-next');
+    if (!items.length) return;
+
+    const COUNT = items.length;
+    let current = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let trackBaseX = 0;
+    let pointerX = 0;
+    let pointerPrevX = 0;
+    let pointerTime = 0;
+    let velocityX = 0;
+    let autoTimer = null;
+    const DRAG_THRESHOLD = 50;
+    const VEL_THRESHOLD = 500;
+    const AUTOPLAY_MS = 5500;
+
+    function width() { return container.offsetWidth; }
+
+    function setX(x, anim) {
+        track.style.transition = anim ? 'transform 0.55s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+        track.style.transform = `translateX(${x}px)`;
+    }
+
+    function activateSlide(idx) {
+        const inner = items[idx] ? items[idx].querySelector('.lsc-item-inner') : null;
+        items.forEach((item, i) => {
+            item.classList.toggle('lsc-active', i === idx);
+            const c = item.querySelector('.lsc-item-inner');
+            if (c) {
+                c.style.opacity = i === idx ? '1' : '0';
+                c.style.transform = i === idx ? 'translateY(0)' : 'translateY(20px)';
+            }
+        });
+    }
+
+    function goTo(idx, anim = true) {
+        current = ((idx % COUNT) + COUNT) % COUNT;
+        setX(-current * width(), anim);
+        dots.forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+            d.classList.toggle('inactive', i !== current);
+        });
+        activateSlide(current);
+    }
+
+    function startAuto() {
+        stopAuto();
+        autoTimer = setInterval(() => goTo(current + 1), AUTOPLAY_MS);
+    }
+    function stopAuto() { clearInterval(autoTimer); autoTimer = null; }
+
+    // --- Mouse drag ---
+    container.addEventListener('mousedown', e => {
+        isDragging = true;
+        dragStartX = e.clientX;
+        trackBaseX = -current * width();
+        pointerX = pointerPrevX = e.clientX;
+        pointerTime = Date.now();
+        velocityX = 0;
+        track.style.transition = 'none';
+        container.style.cursor = 'grabbing';
+        stopAuto();
+        e.preventDefault();
+    });
+    window.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        const now = Date.now();
+        const dt = now - pointerTime || 1;
+        velocityX = (e.clientX - pointerPrevX) / dt * 1000;
+        pointerPrevX = e.clientX;
+        pointerTime = now;
+        pointerX = e.clientX;
+        setX(trackBaseX + (e.clientX - dragStartX), false);
+    });
+    window.addEventListener('mouseup', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        container.style.cursor = '';
+        const dx = e.clientX - dragStartX;
+        if (Math.abs(velocityX) > VEL_THRESHOLD) {
+            goTo(velocityX < 0 ? current + 1 : current - 1);
+        } else if (Math.abs(dx) > DRAG_THRESHOLD) {
+            goTo(dx < 0 ? current + 1 : current - 1);
+        } else {
+            goTo(current);
+        }
+        startAuto();
+    });
+
+    // --- Touch drag ---
+    container.addEventListener('touchstart', e => {
+        isDragging = true;
+        dragStartX = e.touches[0].clientX;
+        trackBaseX = -current * width();
+        pointerPrevX = e.touches[0].clientX;
+        pointerTime = Date.now();
+        velocityX = 0;
+        track.style.transition = 'none';
+        stopAuto();
+    }, { passive: true });
+    container.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        const now = Date.now();
+        const dt = now - pointerTime || 1;
+        velocityX = (e.touches[0].clientX - pointerPrevX) / dt * 1000;
+        pointerPrevX = e.touches[0].clientX;
+        pointerTime = now;
+        setX(trackBaseX + (e.touches[0].clientX - dragStartX), false);
+    }, { passive: true });
+    container.addEventListener('touchend', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        const dx = e.changedTouches[0].clientX - dragStartX;
+        if (Math.abs(velocityX) > VEL_THRESHOLD) {
+            goTo(velocityX < 0 ? current + 1 : current - 1);
+        } else if (Math.abs(dx) > DRAG_THRESHOLD) {
+            goTo(dx < 0 ? current + 1 : current - 1);
+        } else {
+            goTo(current);
+        }
+        startAuto();
+    });
+
+    // --- Controls ---
+    prevBtn && prevBtn.addEventListener('click', () => { goTo(current - 1); stopAuto(); startAuto(); });
+    nextBtn && nextBtn.addEventListener('click', () => { goTo(current + 1); stopAuto(); startAuto(); });
+    dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); stopAuto(); startAuto(); }));
+
+    // Keyboard
+    const _lsKeyHandler = e => {
+        if (state.currentView !== 'about') return;
+        if (e.key === 'ArrowLeft') { goTo(current - 1); stopAuto(); startAuto(); }
+        if (e.key === 'ArrowRight') { goTo(current + 1); stopAuto(); startAuto(); }
+    };
+    if (window._lsKeyHandler) document.removeEventListener('keydown', window._lsKeyHandler);
+    window._lsKeyHandler = _lsKeyHandler;
+    document.addEventListener('keydown', _lsKeyHandler);
+
+    // Pause on hover
+    container.addEventListener('mouseenter', stopAuto);
+    container.addEventListener('mouseleave', () => { if (!isDragging) startAuto(); });
+
+    // Resize
+    const _lsResizeHandler = () => goTo(current, false);
+    if (window._lsResizeHandler) window.removeEventListener('resize', window._lsResizeHandler);
+    window._lsResizeHandler = _lsResizeHandler;
+    window.addEventListener('resize', _lsResizeHandler);
+
+    // Init
+    // Set item widths
+    items.forEach(item => { item.style.width = width() + 'px'; });
+    goTo(0, false);
+    startAuto();
 }
 
 // Landmark Detail View
