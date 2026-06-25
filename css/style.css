@@ -1053,8 +1053,10 @@ section {
 }
 
 .apartments-cta p {
-    font-size: 1.2rem;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
     color: var(--color-text-dim);
+    font-weight: 300;
+    letter-spacing: 0.5px;
 }
 
 .apt-btn {
@@ -1264,8 +1266,10 @@ section {
 }
 
 .apartments-cta p {
-    font-size: 1.2rem;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
     color: var(--color-text-dim);
+    font-weight: 300;
+    letter-spacing: 0.5px;
 }
 
 .apt-btn {
@@ -1520,11 +1524,7 @@ section {
     right: 20px;
 }
 
-.gallery-img {
-    pointer-events: none;
-    /* Let the container handle clicks */
-    transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-}
+/* gallery-img pointer-events and transitions consolidated in main .gallery-img rule */
 
 /* Cinematic Video Container */
 .cinematic-video-container {
@@ -3263,6 +3263,7 @@ section {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 40px;
+    position: relative;
 }
 
 .lsc-container {
@@ -3270,7 +3271,7 @@ section {
     overflow: hidden;
     border: 1px solid #555;
     border-radius: 24px;
-    padding: 16px;
+    padding: 16px; /* Container padding */
     background: #1B1722;
     cursor: grab;
     user-select: none;
@@ -3286,24 +3287,28 @@ section {
 .lsc-track {
     display: flex;
     will-change: transform;
+    transform-style: preserve-3d;
 }
 
 /* Each slide — React Bits .carousel-item */
 .lsc-item {
     position: relative;
     flex-shrink: 0;
-    width: 100%; /* overridden by JS to exact px */
-    height: 78vh;
+    /* Width is explicitly set via JS to match container - padding - gaps */
+    height: 70vh;
     min-height: 480px;
-    max-height: 820px;
+    max-height: 700px;
     border: 1px solid #555;
-    border-radius: calc(24px - 12px); /* inner radius matches React Bits formula */
+    border-radius: calc(24px - 16px); /* inner radius matches React Bits formula */
+    background-color: #1B1722;
     overflow: hidden;
     cursor: grab;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-end;
+    transform-origin: center center;
+    /* Removed translateZ slightly to let 3D physics work purely on rotateY */
 }
 
 .lsc-item:active { cursor: grabbing; }
@@ -3328,8 +3333,8 @@ section {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(to top, rgba(5, 8, 18, 0.96) 0%, rgba(5, 8, 18, 0.55) 40%, rgba(5, 8, 18, 0.18) 75%, transparent 100%),
-        linear-gradient(to right, rgba(5, 8, 18, 0.7) 0%, transparent 55%);
+        linear-gradient(to top, rgba(27, 23, 34, 0.96) 0%, rgba(27, 23, 34, 0.65) 40%, rgba(27, 23, 34, 0.18) 75%, transparent 100%),
+        linear-gradient(to right, rgba(27, 23, 34, 0.7) 0%, transparent 55%);
     z-index: 1;
     pointer-events: none;
 }
@@ -3345,6 +3350,20 @@ section {
     transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
                 transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
     pointer-events: none;
+}
+
+.lsc-item.lsc-active .lsc-item-inner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Force disable transitions during a jump to prevent text flickering */
+.lsc-jumping,
+.lsc-jumping .lsc-item-inner,
+.lsc-jumping .lsc-item-bg,
+.lsc-jumping .lsc-item,
+.lsc-jumping * {
+    transition: none !important;
 }
 
 /* Header row: icon + phase label — matches .carousel-item-header */
@@ -3381,16 +3400,16 @@ section {
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Big title — matches .carousel-item-title */
 .lsc-item-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
     font-weight: 400;
     color: #fff;
-    margin: 0 0 18px;
+    margin: 0 0 16px;
     line-height: 1.05;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -3400,11 +3419,11 @@ section {
 /* Description — matches .carousel-item-description */
 .lsc-item-text {
     font-family: var(--font-heading);
-    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
     font-weight: 300;
-    color: rgba(255,255,255,0.85);
-    line-height: 1.75;
-    max-width: 520px;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+    max-width: 500px;
     margin: 0;
     text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
@@ -3415,11 +3434,11 @@ section {
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.25);
-    background: rgba(15, 18, 30, 0.72);
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(27, 23, 34, 0.7);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     color: #fff;
@@ -3427,13 +3446,13 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
     box-shadow: 0 4px 20px rgba(0,0,0,0.35);
 }
 
 .lsc-arrow:hover {
     border-color: var(--color-accent);
-    background: rgba(20, 24, 40, 0.9);
+    background: rgba(27, 23, 34, 0.95);
     transform: translateY(-50%) scale(1.08);
 }
 
@@ -3443,21 +3462,22 @@ section {
     pointer-events: none;
 }
 
-.lsc-arrow-prev { left: 28px; }
-.lsc-arrow-next { right: 28px; }
+/* Inside the container, but floating at the edges */
+.lsc-arrow-prev { left: 32px; }
+.lsc-arrow-next { right: 32px; }
 
 /* Dot indicators — matches React Bits .carousel-indicators-container + .carousel-indicator */
 .lsc-indicators-container {
     display: flex;
     width: 100%;
     justify-content: center;
-    margin-top: 24px;
+    margin-top: 32px;
 }
 
 .lsc-indicators {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     padding: 0 32px;
 }
 
@@ -3471,6 +3491,7 @@ section {
     cursor: pointer;
     transition: background-color 150ms ease, transform 200ms ease;
     outline: none;
+    background-color: #555;
 }
 
 .lsc-indicator:focus-visible {
@@ -3483,44 +3504,47 @@ section {
     transform: scale(1.35);
 }
 
-.lsc-indicator.inactive {
-    background-color: #555;
-    transform: scale(1);
-}
-
-/* --- Responsive --- */
+/* --- Responsive for all phone sizes --- */
 @media (max-width: 1024px) {
     .lsc-outer { padding: 0 24px; }
-    .lsc-item { height: 65vh; min-height: 400px; }
+    .lsc-item { height: 60vh; min-height: 400px; }
     .lsc-item-inner { padding: 32px 36px; }
     .lsc-arrow { width: 44px; height: 44px; }
-    .lsc-arrow-prev { left: 18px; }
-    .lsc-arrow-next { right: 18px; }
+    .lsc-arrow-prev { left: 24px; }
+    .lsc-arrow-next { right: 24px; }
 }
 
 @media (max-width: 768px) {
     .lsc-section { padding: 80px 0 70px; }
     .lsc-outer { padding: 0 16px; }
-    .lsc-container { padding: 10px; }
-    .lsc-item { height: 58vh; min-height: 340px; border-radius: 14px; }
-    .lsc-item-inner { padding: 24px 24px; }
-    .lsc-item-title { font-size: clamp(2rem, 7vw, 3rem); }
-    .lsc-item-text { font-size: 0.95rem; max-width: 100%; }
-    .lsc-arrow { display: none; }
-    .lsc-indicators-container { margin-top: 18px; }
+    .lsc-container { padding: 12px; border-radius: 20px; }
+    .lsc-item { height: 65vh; min-height: 440px; border-radius: calc(20px - 12px); }
+    .lsc-item-inner { padding: 36px 28px; }
+    .lsc-item-title { font-size: clamp(2rem, 7vw, 3rem); margin-bottom: 12px;}
+    .lsc-item-text { font-size: 0.95rem; line-height: 1.6; }
+    .lsc-arrow { width: 40px; height: 40px; top: 50%; }
+    .lsc-arrow-prev { left: 8px; }
+    .lsc-arrow-next { right: 8px; }
+    .lsc-arrow svg { width: 16px; height: 16px; }
+    .lsc-indicators-container { margin-top: 24px; }
 }
 
 @media (max-width: 480px) {
     .lsc-section { padding: 60px 0 50px; }
-    .lsc-outer { padding: 0 12px; }
-    .lsc-item { height: 52vh; min-height: 300px; }
-    .lsc-item-inner { padding: 18px 18px; }
-    .lsc-item-header { margin-bottom: 12px; }
-    .lsc-icon-wrap { width: 30px; height: 30px; }
+    .lsc-outer { padding: 0 10px; }
+    .lsc-container { padding: 8px; border-radius: 16px; }
+    .lsc-item { height: 70vh; min-height: 420px; border-radius: calc(16px - 8px); }
+    .lsc-item-inner { padding: 32px 20px; }
+    .lsc-item-header { margin-bottom: 12px; gap: 10px; }
+    .lsc-icon-wrap { width: 28px; height: 28px; }
     .lsc-icon-wrap svg { width: 14px; height: 14px; }
-    .lsc-phase-label { font-size: 0.68rem; }
-    .lsc-item-title { font-size: clamp(1.6rem, 8vw, 2.4rem); margin-bottom: 10px; }
-    .lsc-item-text { font-size: 0.85rem; line-height: 1.55; }
+    .lsc-phase-label { font-size: 0.7rem; }
+    .lsc-item-title { font-size: clamp(1.8rem, 8vw, 2.4rem); margin-bottom: 8px; }
+    .lsc-item-text { font-size: 0.85rem; line-height: 1.5; }
+    .lsc-arrow { width: 36px; height: 36px; top: 50%; }
+    .lsc-arrow-prev { left: 4px; }
+    .lsc-arrow-next { right: 4px; }
+    .lsc-indicators-container { margin-top: 20px; }
 }
 
 /* 4. Bento Landmarks */
@@ -4687,6 +4711,16 @@ section {
     background: #000;
 }
 
+@media (max-width: 768px) {
+    .media-section {
+        height: 55vh;
+        min-height: 350px;
+        max-height: 500px;
+        margin: 20px auto 40px;
+        border-radius: 20px;
+    }
+}
+
 .media-container {
     position: absolute;
     top: 0;
@@ -4711,6 +4745,9 @@ section {
     width: 100%;
     height: 100%;
     position: relative;
+    overflow: hidden;
+    contain: layout style;
+    -webkit-overflow-scrolling: touch;
 }
 
 .gallery-img {
@@ -4721,9 +4758,13 @@ section {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    /* Faster, more responsive crossfade */
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1;
+    will-change: opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    pointer-events: none;
 }
 
 .gallery-img.active {
@@ -4744,6 +4785,12 @@ section {
     color: rgba(255, 255, 255, 0.6);
     z-index: 5;
     pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .gallery-hint {
+        display: none !important;
+    }
 }
 
 /* Info Grid Layout */

@@ -1151,7 +1151,54 @@ function renderApartment(aptId) {
     };
 
     window.startGalleryAutoSlide();
-    
+
+    // ── Professional Touch/Swipe Support for Gallery ──
+    const galleryMain = document.querySelector('.gallery-main');
+    if (galleryMain) {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        let isSwiping = false;
+
+        galleryMain.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+            isSwiping = false;
+        }, { passive: true });
+
+        galleryMain.addEventListener('touchmove', (e) => {
+            if (!touchStartX) return;
+            const dx = Math.abs(e.touches[0].clientX - touchStartX);
+            const dy = Math.abs(e.touches[0].clientY - touchStartY);
+            // If horizontal movement dominates, it's a swipe — prevent page scroll
+            if (dx > dy && dx > 10) {
+                isSwiping = true;
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        galleryMain.addEventListener('touchend', (e) => {
+            if (!isSwiping) return;
+            const touchEndX = e.changedTouches[0].clientX;
+            const deltaX = touchEndX - touchStartX;
+            const elapsed = Date.now() - touchStartTime;
+            const velocity = Math.abs(deltaX) / elapsed;
+
+            // Swipe threshold: 50px distance OR fast flick (velocity > 0.3)
+            if (Math.abs(deltaX) > 50 || velocity > 0.3) {
+                if (deltaX < 0) {
+                    window.moveGallery(1); // Swipe left → next
+                } else {
+                    window.moveGallery(-1); // Swipe right → prev
+                }
+            }
+            touchStartX = 0;
+            touchStartY = 0;
+            isSwiping = false;
+        }, { passive: true });
+    }
+
     // Initialize player immediately so it's ready when switched
     if (apt.video) {
         setTimeout(() => {
@@ -1416,13 +1463,19 @@ function renderAbout() {
                 <h2 class="lsc-title">${aboutData.lifestyle.title[state.lang] || aboutData.lifestyle.title['ru']}</h2>
             </div>
             <div class="lsc-outer">
-                <div class="lsc-container" id="lsc-container">
-                    <div class="lsc-track" id="lsc-track">${_lsSlidesHtml}</div>
+                <div class="lsc-container-wrap" style="position: relative;">
+                    <div class="lsc-container" id="lsc-container">
+                        <div class="lsc-track" id="lsc-track">
+                            <!-- We will inject cloned slides via JS for looping -->
+                            ${_lsSlidesHtml}
+                        </div>
+                    </div>
+                    <!-- Navigation Arrows outside container so they aren't blocked by drag -->
                     <button class="lsc-arrow lsc-arrow-prev" id="lsc-prev" aria-label="Previous">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
                     </button>
                     <button class="lsc-arrow lsc-arrow-next" id="lsc-next" aria-label="Next">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </button>
                 </div>
                 <div class="lsc-indicators-container">
@@ -1636,76 +1689,199 @@ function renderAbout() {
     });
 }
 
-// Lifestyle Carousel — React Bits style (drag, velocity snap, autoplay, dots, arrows)
+// Lifestyle Carousel — React Bits 3D style (drag, velocity snap, autoplay, dots, arrows, 3D transform, looping)
 function initLifestyleCarousel() {
     const container = document.getElementById('lsc-container');
     const track = document.getElementById('lsc-track');
     if (!container || !track) return;
 
-    const items = Array.from(track.querySelectorAll('.lsc-item'));
+    let originalItems = Array.from(track.querySelectorAll('.lsc-item'));
     const dots = Array.from(document.querySelectorAll('#lsc-indicators .lsc-indicator'));
     const prevBtn = document.getElementById('lsc-prev');
     const nextBtn = document.getElementById('lsc-next');
-    if (!items.length) return;
+    if (!originalItems.length) return;
 
-    const COUNT = items.length;
-    let current = 0;
+    // React Bits parameters
+    const GAP = 16;
+    const DRAG_BUFFER = 0;
+    const VEL_THRESHOLD = 500;
+    const AUTOPLAY_MS = 8000; // Increased from 3000 to make auto-scroll much slower and more readable
+    
+    // Create clones for infinite loop
+    const firstClone = originalItems[0].cloneNode(true);
+    const lastClone = originalItems[originalItems.length - 1].cloneNode(true);
+    
+    track.insertBefore(lastClone, originalItems[0]);
+    track.appendChild(firstClone);
+    
+    // Now get all items including clones
+    const items = Array.from(track.querySelectorAll('.lsc-item'));
+    const renderCount = items.length;
+    const originalCount = originalItems.length;
+
+    let position = 1; // Start at first real item (index 1)
     let isDragging = false;
     let dragStartX = 0;
     let trackBaseX = 0;
-    let pointerX = 0;
     let pointerPrevX = 0;
     let pointerTime = 0;
     let velocityX = 0;
     let autoTimer = null;
-    const DRAG_THRESHOLD = 50;
-    const VEL_THRESHOLD = 500;
-    const AUTOPLAY_MS = 5500;
+    let currentX = 0;
+    let isAnimating = false;
+    let isJumping = false;
 
-    function width() { return container.offsetWidth; }
+    // We calculate trackItemOffset as itemWidth + GAP
+    function itemWidth() { return items[0].offsetWidth; }
+    function trackItemOffset() { return itemWidth() + GAP; }
+    
+    function getInnerWidth() {
+        if (!container) return 300;
+        const style = window.getComputedStyle(container);
+        const pLeft = parseFloat(style.paddingLeft) || 0;
+        const pRight = parseFloat(style.paddingRight) || 0;
+        return container.clientWidth - pLeft - pRight;
+    }
+
+    function update3DTransforms(currentXValue) {
+        const offset = trackItemOffset();
+        const halfWidth = itemWidth() / 2;
+        
+        // Match React Bits perspective origin
+        track.style.perspective = '1000px';
+        track.style.perspectiveOrigin = `${(position * offset) + halfWidth}px 50%`;
+
+        items.forEach((item, index) => {
+            const itemCenter = -index * offset;
+            
+            // This replicates useTransform(x, [left, center, right], [90, 0, -90])
+            let rotateY = 0;
+            const distance = currentXValue - itemCenter;
+            
+            if (distance > offset) rotateY = -90;
+            else if (distance < -offset) rotateY = 90;
+            else {
+                // Map [-offset, offset] to [90, -90]
+                rotateY = (distance / offset) * -90;
+            }
+
+            item.style.transform = `rotateY(${rotateY}deg)`;
+            
+            // Manage visibility/opacity based on active state (CSS handles the animation)
+            const isActive = index === position;
+            item.classList.toggle('lsc-active', isActive);
+        });
+    }
 
     function setX(x, anim) {
-        track.style.transition = anim ? 'transform 0.55s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+        currentX = x;
+        if (anim && !isJumping) {
+            track.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
+            items.forEach(item => {
+                item.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
+            });
+        } else {
+            track.style.transition = 'none';
+            items.forEach(item => {
+                item.style.transition = 'none';
+            });
+        }
+        
         track.style.transform = `translateX(${x}px)`;
+        update3DTransforms(x);
     }
 
-    function activateSlide(idx) {
-        const inner = items[idx] ? items[idx].querySelector('.lsc-item-inner') : null;
-        items.forEach((item, i) => {
-            item.classList.toggle('lsc-active', i === idx);
-            const c = item.querySelector('.lsc-item-inner');
-            if (c) {
-                c.style.opacity = i === idx ? '1' : '0';
-                c.style.transform = i === idx ? 'translateY(0)' : 'translateY(20px)';
-            }
+    function updateDots() {
+        // activeIndex ignores clones
+        const activeIndex = (position - 1 + originalCount) % originalCount;
+        dots.forEach((d, i) => {
+            d.classList.toggle('active', i === activeIndex);
+            d.classList.toggle('inactive', i !== activeIndex);
+            d.style.transform = i === activeIndex ? 'scale(1.2)' : 'scale(1)';
         });
     }
+
+    let animTimeout;
+
+    function handleTransitionEnd(e) {
+        if (e && e.target !== track) return; // ignore child transitions
+        if (!isAnimating) return;
+        isAnimating = false;
+        clearTimeout(animTimeout);
+        
+        if (position === renderCount - 1) {
+            // Reached clone at the end, jump to start
+            isJumping = true;
+            position = 1;
+            
+            track.classList.add('lsc-jumping');
+            setX(-position * trackItemOffset(), false);
+            void track.offsetWidth; // Force reflow
+            track.classList.remove('lsc-jumping');
+            
+            requestAnimationFrame(() => {
+                isJumping = false;
+            });
+        } else if (position === 0) {
+            // Reached clone at the start, jump to end
+            isJumping = true;
+            position = originalCount;
+            
+            track.classList.add('lsc-jumping');
+            setX(-position * trackItemOffset(), false);
+            void track.offsetWidth; // Force reflow
+            track.classList.remove('lsc-jumping');
+            
+            requestAnimationFrame(() => {
+                isJumping = false;
+            });
+        }
+    }
+
+    track.addEventListener('transitionend', handleTransitionEnd);
 
     function goTo(idx, anim = true) {
-        current = ((idx % COUNT) + COUNT) % COUNT;
-        setX(-current * width(), anim);
-        dots.forEach((d, i) => {
-            d.classList.toggle('active', i === current);
-            d.classList.toggle('inactive', i !== current);
-        });
-        activateSlide(current);
+        if (isAnimating && !isDragging) return;
+        
+        const newPos = Math.max(0, Math.min(idx, renderCount - 1));
+        const targetX = -newPos * trackItemOffset();
+        
+        if (newPos === position && currentX === targetX) {
+            return; // no change needed
+        }
+        
+        position = newPos;
+        isAnimating = true;
+        setX(targetX, anim);
+        updateDots();
+        
+        clearTimeout(animTimeout);
+        if (anim) {
+            animTimeout = setTimeout(() => {
+                handleTransitionEnd();
+            }, 950); // 0.95s fallback if transitionend fails (matches 0.8s transition)
+        } else {
+            handleTransitionEnd();
+        }
     }
 
     function startAuto() {
         stopAuto();
-        autoTimer = setInterval(() => goTo(current + 1), AUTOPLAY_MS);
+        autoTimer = setInterval(() => {
+            if (!isDragging && !isAnimating) goTo(position + 1);
+        }, AUTOPLAY_MS);
     }
     function stopAuto() { clearInterval(autoTimer); autoTimer = null; }
 
     // --- Mouse drag ---
     container.addEventListener('mousedown', e => {
+        if (isAnimating && !isJumping) return;
         isDragging = true;
         dragStartX = e.clientX;
-        trackBaseX = -current * width();
-        pointerX = pointerPrevX = e.clientX;
+        trackBaseX = -position * trackItemOffset();
+        pointerPrevX = e.clientX;
         pointerTime = Date.now();
         velocityX = 0;
-        track.style.transition = 'none';
         container.style.cursor = 'grabbing';
         stopAuto();
         e.preventDefault();
@@ -1717,7 +1893,6 @@ function initLifestyleCarousel() {
         velocityX = (e.clientX - pointerPrevX) / dt * 1000;
         pointerPrevX = e.clientX;
         pointerTime = now;
-        pointerX = e.clientX;
         setX(trackBaseX + (e.clientX - dragStartX), false);
     });
     window.addEventListener('mouseup', e => {
@@ -1725,25 +1900,27 @@ function initLifestyleCarousel() {
         isDragging = false;
         container.style.cursor = '';
         const dx = e.clientX - dragStartX;
-        if (Math.abs(velocityX) > VEL_THRESHOLD) {
-            goTo(velocityX < 0 ? current + 1 : current - 1);
-        } else if (Math.abs(dx) > DRAG_THRESHOLD) {
-            goTo(dx < 0 ? current + 1 : current - 1);
+        
+        const direction = dx < -DRAG_BUFFER || velocityX < -VEL_THRESHOLD ? 1 : dx > DRAG_BUFFER || velocityX > VEL_THRESHOLD ? -1 : 0;
+        
+        if (direction !== 0) {
+            goTo(position + direction);
         } else {
-            goTo(current);
+            // Snap back
+            goTo(position);
         }
         startAuto();
     });
 
     // --- Touch drag ---
     container.addEventListener('touchstart', e => {
+        if (isAnimating && !isJumping) return;
         isDragging = true;
         dragStartX = e.touches[0].clientX;
-        trackBaseX = -current * width();
+        trackBaseX = -position * trackItemOffset();
         pointerPrevX = e.touches[0].clientX;
         pointerTime = Date.now();
         velocityX = 0;
-        track.style.transition = 'none';
         stopAuto();
     }, { passive: true });
     container.addEventListener('touchmove', e => {
@@ -1759,45 +1936,65 @@ function initLifestyleCarousel() {
         if (!isDragging) return;
         isDragging = false;
         const dx = e.changedTouches[0].clientX - dragStartX;
-        if (Math.abs(velocityX) > VEL_THRESHOLD) {
-            goTo(velocityX < 0 ? current + 1 : current - 1);
-        } else if (Math.abs(dx) > DRAG_THRESHOLD) {
-            goTo(dx < 0 ? current + 1 : current - 1);
+        
+        const direction = dx < -DRAG_BUFFER || velocityX < -VEL_THRESHOLD ? 1 : dx > DRAG_BUFFER || velocityX > VEL_THRESHOLD ? -1 : 0;
+        
+        if (direction !== 0) {
+            goTo(position + direction);
         } else {
-            goTo(current);
+            // Snap back
+            goTo(position);
         }
         startAuto();
     });
 
     // --- Controls ---
-    prevBtn && prevBtn.addEventListener('click', () => { goTo(current - 1); stopAuto(); startAuto(); });
-    nextBtn && nextBtn.addEventListener('click', () => { goTo(current + 1); stopAuto(); startAuto(); });
-    dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); stopAuto(); startAuto(); }));
+    prevBtn && prevBtn.addEventListener('click', () => { if(!isAnimating) { goTo(position - 1); stopAuto(); startAuto(); } });
+    nextBtn && nextBtn.addEventListener('click', () => { if(!isAnimating) { goTo(position + 1); stopAuto(); startAuto(); } });
+    dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i + 1); stopAuto(); startAuto(); }));
 
     // Keyboard
     const _lsKeyHandler = e => {
         if (state.currentView !== 'about') return;
-        if (e.key === 'ArrowLeft') { goTo(current - 1); stopAuto(); startAuto(); }
-        if (e.key === 'ArrowRight') { goTo(current + 1); stopAuto(); startAuto(); }
+        if (e.key === 'ArrowLeft') { goTo(position - 1); stopAuto(); startAuto(); }
+        if (e.key === 'ArrowRight') { goTo(position + 1); stopAuto(); startAuto(); }
     };
     if (window._lsKeyHandler) document.removeEventListener('keydown', window._lsKeyHandler);
     window._lsKeyHandler = _lsKeyHandler;
     document.addEventListener('keydown', _lsKeyHandler);
 
     // Pause on hover
-    container.addEventListener('mouseenter', stopAuto);
+    container.addEventListener('mouseenter', () => {
+        stopAuto();
+    });
     container.addEventListener('mouseleave', () => { if (!isDragging) startAuto(); });
 
     // Resize
-    const _lsResizeHandler = () => goTo(current, false);
+    const _lsResizeHandler = () => {
+        const w = getInnerWidth();
+        items.forEach(item => {
+            item.style.width = w + 'px'; 
+        });
+        track.style.gap = `${GAP}px`;
+        isJumping = true; // prevent animation on resize jump
+        
+        track.classList.add('lsc-jumping');
+        setX(-position * trackItemOffset(), false);
+        void track.offsetWidth; // force reflow
+        track.classList.remove('lsc-jumping');
+        
+        requestAnimationFrame(() => {
+            isJumping = false;
+            isAnimating = false; // Reset lock just in case
+        });
+    };
     if (window._lsResizeHandler) window.removeEventListener('resize', window._lsResizeHandler);
     window._lsResizeHandler = _lsResizeHandler;
     window.addEventListener('resize', _lsResizeHandler);
 
     // Init
-    // Set item widths
-    items.forEach(item => { item.style.width = width() + 'px'; });
-    goTo(0, false);
+    _lsResizeHandler(); // Calculate initial sizes
+    updateDots();
     startAuto();
 }
 
